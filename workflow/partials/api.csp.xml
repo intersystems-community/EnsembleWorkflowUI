@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="partials/api.csp" application="/workflow/"><![CDATA[
+
+<div class="row-fluid">
+	<p>Примеры для GET:</p>
+	<br>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/tasks', '_blank')" >/tasks</a> - все Task<p>
+</div>
+]]></CSP>
+</Export>

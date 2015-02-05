@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="index.csp" application="/workflow/"><![CDATA[
+<!doctype html>
+
+<html>
+  <head> 
+    <title>Ensemble Workflow</title>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS Initialization -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
+    <script language="javascript">
+        /* Имя приложения для работы с REST, глобальная переменная */
+        var DemoSetting = {appName: '#($GET(^Settings("WF", "WebAppName")))#'};
+  </script>
+  </head>
+  
+  <body ng-app="app" ng-controller="GlobalCtrl">
+    <div class="container-fluid">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Ensemble Workflow</a>
+          </div>
+          
+          <div>
+            
+            <div class="navbar-left">
+              <button ng-disabled="loginState != 1" type="button" class="btn btn-default navbar-btn" ng-click="init();">Refresh Worklist</button>
+            </div>
+            
+            <div class="navbar-left">
+              <form role="search" class="navbar-form">
+                <div class="form-group">
+                  <label for="search" class="sr-only">Search</label>
+                  <input ng-disabled="loginState != 1" type="text" class="form-control" placeholder="Search" id="search" ng-model="query">
+                </div>
+              </form>
+            </div>
+            
+            <form role="form" class="navbar-form pull-right" ng-show="loginState != 1" ng-model="user"
+              ng-submit="doLogin(user.Login, user.PasswordSetter); user='';">  
+              <input ng-model="user.Login" type="text" placeholder="Username" required>
+              <input ng-model="user.PasswordSetter" type="password" placeholder="Password" required>
+              <button type="submit" class="btn btn-default">Sign In</button>
+            </form>
+            <button ng-show="loginState === 1" type="button" ng-click="doExit();" class="btn navbar-btn btn-default pull-right">Logout, 
+              <span class="label label-info" ng-bind="readCookie('Username')"></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+      
+       <!-- Инфо-сообщения -->
+       <div></div>
+       
+      <div ng-show="loginState != 1" class="attention">
+        <p>Please, Log In first.</p>
+      </div> 
+        
+      <!-- Loading template -->
+      <div ng-view>
+      </div>
+    </div>
+    
+    <!-- Hooking scripts -->  
+    <script language="javascript"  src="libs/jquery-1.11.2.min.js"></script>  
+    <script language="javascript"  src="libs/bootstrap.min.js"></script>
+    <script language="javascript"  src="libs/angular.min.js"></script>
+    <script language="javascript"  src="libs/angular-route.min.js"></script>
+    <script language="javascript"  src="libs/angular-cookies.min.js"></script>
+    
+    <script language="javascript"  src="js/app.js"></script>
+    
+    <script language="javascript"  src="js/controllers/GlobalCtrl.js"></script>
+    <script language="javascript"  src="js/controllers/TaskCtrl.js"></script>
+    <script language="javascript"  src="js/controllers/GridCtrl.js"></script>
+
+    <script language="javascript"  src="js/services/RESTSrvc.js"></script>
+    <script language="javascript"  src="js/services/TaskSrvc.js"></script>
+    <script language="javascript"  src="js/services/LoginSrvc.js"></script>
+  </body>
+</html>
+]]></CSP>
+</Export>

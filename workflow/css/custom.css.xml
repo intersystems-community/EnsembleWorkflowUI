@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="css/custom.css" application="/workflow/"><![CDATA[
+.attention {
+  font-size: 3em;
+  color: #AAA;
+  text-align: center;
+  margin-top: 200px;
+}
+
+.form-control {
+   cursor: default !important;
+}
+
+#tasksTable {
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;  
+}]]></CSP>
+</Export>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="partials/tasks.csp" application="/workflow/"><![CDATA[
+<div class="row-fluid">
+  <div class="span1">
+  </div>
+  
+  <div ng-show="loginState == 1" ng-controller="GridCtrl">
+    <table ng-class="grid.cssClass" style="cursor: pointer;" id="tasksTable">
+      <caption class="text-left" style="padding-bottom: 5px;">
+        <b ng-bind="grid.caption"></b>
+      </caption>
+      <thead>
+        <tr>
+          <th>#</th>
+          <!-- In the cycle prints the name of the column, specify for each column click handler and the icon (sorting) -->
+          <th ng-repeat="column in grid.columns" ng-click="sort(column.property, isUp)">
+            <span ng-bind="column.name"></span>
+              <i ng-class="sortIcon" ng-show="column.property == predicate"></i>   
+          </th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <!-- Control buttons and messages -->
+          <td colspan="{{grid.columns.length + 1}}">
+            <p ng-hide="grid.items.length">There is no task(s) for current user.</p>
+            <span ng-hide="(grid.items.length == 0) || grid.selected">
+              Showing {{totalCnt()}} of {{grid.items.length}} tasks.
+            </span> 
+            <button class="btn btn-small btn-primary" ng-click="grid.accept(grid.selected)"   ng-show="!assigned(grid.selected) && grid.selected">Accept</button>
+            <button class="btn btn-small btn-success"  ng-click="grid.edit(grid.selected)" ng-show="assigned(grid.selected)">Details</button>
+            <button class="btn btn-small btn-danger"  ng-click="grid.yield(grid.selected)" ng-show="assigned(grid.selected)">Yield</button>
+          </td>
+        </tr>   
+      </tfoot>
+      <tbody>
+        <!-- In the cycle prints the table rows (sort by specified column) -->
+        <tr ng-repeat="item in grid.items | orderBy:predicate:isUp | filter:query" ng-class="item.rowCss" ng-click="select(item)">
+          <td ng-bind="$index + 1"></td>    
+          <!-- In the cycle prints the table cells to each row -->
+          <td ng-repeat="column in grid.columns">
+            <span ng-bind="getPropertyValue(item, column.property)"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="span1">
+  </div>
+</div>
+<br>
+]]></CSP>
+</Export>

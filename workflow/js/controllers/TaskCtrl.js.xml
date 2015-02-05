@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="js/controllers/TaskCtrl.js" application="/workflow/"><![CDATA[
+'use strict';
+
+// Task controller
+// dependency injection
+function TaskCtrl( $scope, $routeParams, TaskSrvc ) {
+  $scope.page = { task:{} };
+
+  // data initialization
+  $scope.page.init = function() {
+    if ( $routeParams.id ) {
+      $scope.page.formBtnSubmitName = "Save";
+      $scope.page.loadTask( $routeParams.id );        
+    }
+  };
+
+  // load Task by id
+  $scope.page.loadTask = function( id ) {
+    TaskSrvc.get(id).then(
+      function( data ) {
+        $scope.page.task = data;
+      },
+      function( data, status, headers, config ) {
+        $scope.page.gralert = {type: 'error', msg: 'Task is not loaded.'};  
+      });       
+  };
+
+  // submit the task form
+  $scope.page.submit = function() {
+    TaskSrvc.save($scope.page.task).then(
+      function( data ) {
+        $scope.alerts.push( {type: 'success', msg: 'Changes saved.'} );
+        // clear the form
+        $scope.pageForm.$setPristine();
+      },
+      function( data, status, headers, config ){
+        $scope.alerts.push( {type: 'error', msg: 'Task is not saved.'} );  
+      });
+  };
+
+  $scope.page.init(); 
+}
+
+// resolving minification problems
+TaskCtrl.$inject = [ '$scope', '$routeParams', 'TaskSrvc' ];
+controllersModule.controller( 'TaskCtrl', TaskCtrl );
+
+]]></CSP>
+</Export>

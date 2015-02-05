@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="js/app.js" application="/workflow/"><![CDATA[
+'use strict';
+
+// From Ilya Podolko's webinar demo.
+
+/*
+Recomendations:
+Service module to describe services.
+Controller module to describe controllers.
+Directive module to describe directives.
+And entire app module.
+
+Adding routes(when).
+[route], {[template path for ng-view], [controller for this template]}
+
+otherwise
+Set default route.
+
+$routeParams.id - :id parameter.
+*/
+
+var servicesModule    = angular.module('servicesModule',[]);
+var controllersModule = angular.module('controllersModule', []);
+var directivesModule  = angular.module('directivesModule', []);
+var app = angular.module('app', ['ngRoute', 'ngCookies', 'servicesModule', 'controllersModule', 'directivesModule']);
+
+app.config([ '$routeProvider', function( $routeProvider ) {
+  $routeProvider.when( '/workflow/tasks',     {templateUrl: 'partials/tasks.csp'} );
+  $routeProvider.when( '/workflow/tasks/:id', {templateUrl: 'partials/task.csp',  controller: 'TaskCtrl'});
+  $routeProvider.when( '/workflow/api',       {templateUrl: 'partials/api.csp',   controller: ''});
+    
+  $routeProvider.otherwise({redirectTo: '/workflow/tasks'});
+}]);
+ ]]></CSP>
+</Export>

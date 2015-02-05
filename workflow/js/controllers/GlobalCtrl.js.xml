@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="js/controllers/GlobalCtrl.js" application="/workflow/"><![CDATA[
+'use strict';
+
+// global controller
+// Controls the authentication. Loads the full worklist for user.
+function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
+   $scope.page = {};
+   
+   $scope.alerts = [];
+
+   $scope.closeAlert = function( index ) {
+     $scope.alerts.splice( index, 1 );
+   };
+
+   // data initialization for Worklist
+   $scope.init = function() {    
+     // do not need cookie, if we use doLogin()
+     if ( $scope.loginState !== 1 ) {
+       $scope.loginState = $cookieStore.get( 'LoginState' );
+     }
+     
+     /* grid data:
+        grid title, css grid class, 
+        column names, methods
+     */
+        $scope.grid = {
+          caption: 'Inbox Tasks',
+          cssClass:'table table-bordered table-hover',
+          columns: [{name: 'Priority', property: 'Priority'}, 
+                    {name: 'Subject', property: 'Subject'},
+                    {name: 'Message', property: 'Message'},
+                    {name: 'Role', property: 'RoleName'},
+                    {name: 'Assigned To', property: 'AssignedTo'},
+                    {name: 'Time Created', property: 'TimeCreated'},
+                    {name: 'Age', property: 'Age'}],
+          edit:    $scope.page.editTask
+        };
+        
+        if ( $scope.loginState == 1 ) {
+          $scope.page.loadTasks();
+        }
+   };
+
+   // worklist loading
+   $scope.page.loadTasks = function() {
+     TaskSrvc.getAll().then(
+       function( data ) {
+         $scope.grid.items = data.children;
+       },
+       function( data, status, headers, config ) {
+         $scope.alerts.push( {type: 'error', msg: 'Tasks are not loaded.'} );  
+       });      
+   };
+   
+   // go to single task page
+   $scope.page.editTask = function( task ) {
+     $location.path( '/workflow/tasks/' + task.id );
+   };
+   
+   // login function
+   $scope.doLogin  = function( login, password ) {
+     LoginSrvc.auth( login, password ).then(
+       function( data ) {
+         $scope.loginState = 1;   
+         document.cookie = "Username=" + data.Username +"; Path=/;"; 
+         document.cookie = "LoginState=1; Path=/;"; 
+           
+         console.log( "Login successful" );
+        
+         $scope.init(); 
+       },
+       function( data, status, headers, config ) {
+         $scope.alerts.push( {type: 'error', msg: 'Log in error!'} ); 
+         console.log( "Log in error" );
+       });
+  };
+
+  // logout function
+  $scope.doExit = function() {   
+    $scope.loginState = 0;  
+    document.cookie = "Username" + "=; Path=/;";  
+    document.cookie = "LoginState" + "=; Path=/;";
+    document.cookie = "CSPSESSIONID" + "=; Path=" + DemoSetting+ "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
+    document.cookie = "CSPWSERVERID" + "=; Path=" + DemoSetting+ "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
+  }
+  
+  // get cookie by name  
+  $scope.readCookie = function( name ) {
+    var nameEQ = name + "=";
+    var cookiesArray = document.cookie.split( ';' );
+  
+    for ( var i = 0; i < cookiesArray.length; i++ ) {
+      var cookieElement = cookiesArray[i];
+      
+      while ( cookieElement.charAt(0) == ' ' ) 
+        cookieElement = cookieElement.substring( 1, cookieElement.length );
+      
+      if ( cookieElement.indexOf(nameEQ) == 0 ) 
+        return cookieElement.substring( nameEQ.length, cookieElement.length );
+    }
+  
+    return null;
+  };
+   
+   $scope.init(); 
+}
+
+// resolving minification problems
+GlobalCtrl.$inject = [ '$scope', '$location', '$cookieStore', 'LoginSrvc', 'TaskSrvc' ];
+controllersModule.controller( 'GlobalCtrl', GlobalCtrl );
+]]></CSP>
+</Export>

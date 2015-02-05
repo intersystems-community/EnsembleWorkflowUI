@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="js/controllers/GridCtrl.js" application="/workflow/"><![CDATA[
+'use strict';
+
+// Grid controller
+// dependency injection
+function GridCtrl( $scope, $window ){
+  
+  // sorting table
+  $scope.sort = function( property, isUp ) {
+    $scope.predicate = property; 
+    $scope.isUp = !isUp;
+    // sorting icon
+    $scope.sortIcon = 'glyphicon glyphicon-chevron-' + ( $scope.isUp ? 'up':'down' ) + ' pull-right';    
+  };
+    
+  // selecting row in table
+  $scope.select = function( item ) {
+    if ( $scope.grid.selected ) {
+      $scope.grid.selected.rowCss = '';
+        
+      if ( $scope.grid.selected == item ) {
+        $scope.grid.selected = null;
+        return;
+      }
+    }
+      
+    $scope.grid.selected = item;
+    // change css class to highlight the row
+    $scope.grid.selected.rowCss = 'info';
+  };
+
+  // Method to get value of any property of the object
+  // Example: 
+  // var obj = {car: {body: {company: {name: 'Mazda'}}}};
+  // getPropertyValue(obj, 'car.body.company.name') 
+  $scope.getPropertyValue = function( item, propertyStr ) {
+    var value = item;
+
+    try {
+      var properties = propertyStr.split( '.' );
+      for ( var i = 0; i < properties.length; i++ ) {
+        value = value[properties[i]];
+            
+        if ( value !== Object(value) )
+          break;
+        }
+    }
+    catch( ex ) {
+      console.log( 'Something goes wrong :/' );
+    }
+
+    return value == undefined ? '' : value;
+  };
+
+  $scope.totalCnt =  function() {
+    return $window.document.getElementById('tasksTable').getElementsByTagName('TR').length - 2;
+  };
+    
+  $scope.assigned =  function( selected ) {
+  
+    if ( selected ) {
+      if ( selected.AssignedTo == $scope.readCookie("Username") )
+        return true;
+    }
+    
+    return false;
+  };
+    
+  $scope.$watch( 'query', function() {
+    if ( $scope.grid.selected ) {
+      $scope.select( $scope.grid.selected );  
+    }
+    $scope.grid.selected = 0;
+  });
+  
+  // sort table during init (by Priority, desc)
+  // to change column change columns[ index ]
+  $scope.sort( $scope.grid.columns[0].property, false );
+}
+
+// resolving minification problems
+GridCtrl.$inject = [ '$scope', '$window' ];
+controllersModule.controller( 'GridCtrl', GridCtrl );
+
+]]></CSP>
+</Export>
