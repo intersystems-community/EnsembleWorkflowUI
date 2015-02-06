@@ -28,7 +28,8 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
         $scope.grid = {
           caption: 'Inbox Tasks',
           cssClass:'table table-bordered table-hover',
-          columns: [{name: 'Priority', property: 'Priority'}, 
+          columns: [{name: '', property: 'New'},
+                    {name: 'Priority', property: 'Priority'}, 
                     {name: 'Subject', property: 'Subject'},
                     {name: 'Message', property: 'Message'},
                     {name: 'Role', property: 'RoleName'},
@@ -53,6 +54,47 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
          $scope.alerts.push( {type: 'error', msg: 'Tasks are not loaded.'} );  
        });      
    };
+  
+  $scope.accept = function( selected ) {
+    if ( !selected ) 
+      return;
+    
+    TaskSrvc.get( selected.ID ).then(
+      function( data ) {
+        data.Task["%Action"] = "$Accept";
+        $scope.submit( data ); 
+      },
+      function( data, status, headers, config ) {
+        $scope.alerts.push( {type: 'error', msg: 'Error during accept.'} );
+      });
+  };
+  
+    $scope.yield = function( selected ) {
+    if ( !selected ) 
+      return;
+    
+    TaskSrvc.get( selected.ID ).then(
+      function( data ) {
+        data.Task["%Action"] = "$Relinquish";    
+        $scope.submit( data ); 
+      },
+      function( data, status, headers, config ) {
+        $scope.alerts.push( {type: 'error', msg: 'Error during yield.'} );      
+      });
+  };
+  
+   
+  // submit the worklist
+  $scope.submit = function( worklist ) {
+    TaskSrvc.save(worklist).then(
+      function( data ) {
+        $scope.alerts.push( {type: 'success', msg: 'Changes saved.'} );
+        $scope.init();
+      },
+      function( data, status, headers, config ) {
+        $scope.alerts.push( {type: 'error', msg: 'Changes not saved.'} );        
+      });
+  };
    
    // go to single task page
    $scope.page.editTask = function( task ) {

@@ -6,10 +6,10 @@
 // Task service
 function TaskSrvc( RESTSrvc ) {    
   return {
-    // save Task 
+    // save worklist object
     save: 
-      function( task ) {
-            return RESTSrvc.getPromise({method: 'POST', url: DemoSetting.appName + '/tasks/' + id, data: task});
+      function( worklist ) {
+            return RESTSrvc.getPromise({method: 'POST', url: DemoSetting.appName + '/tasks/' + worklist._id, data: worklist});
       },
     
     // get Task by id 
@@ -18,7 +18,7 @@ function TaskSrvc( RESTSrvc ) {
         return RESTSrvc.getPromise({method: 'GET', url: DemoSetting.appName + '/tasks/' + id});
       },
     
-    // get Worklist
+    // get all worklists for current user
     getAll: 
       function() {
         return RESTSrvc.getPromise({method: 'GET', url: DemoSetting.appName + '/tasks'});

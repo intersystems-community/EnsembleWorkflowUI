@@ -28,9 +28,9 @@
             <span ng-hide="(grid.items.length == 0) || grid.selected">
               Showing {{totalCnt()}} of {{grid.items.length}} tasks.
             </span> 
-            <button class="btn btn-small btn-primary" ng-click="grid.accept(grid.selected)"   ng-show="!assigned(grid.selected) && grid.selected">Accept</button>
+            <button class="btn btn-small btn-primary" ng-click="accept(grid.selected)"   ng-show="!assigned(grid.selected) && grid.selected">Accept</button>
             <button class="btn btn-small btn-success"  ng-click="grid.edit(grid.selected)" ng-show="assigned(grid.selected)">Details</button>
-            <button class="btn btn-small btn-danger"  ng-click="grid.yield(grid.selected)" ng-show="assigned(grid.selected)">Yield</button>
+            <button class="btn btn-small btn-danger"  ng-click="yield(grid.selected)" ng-show="assigned(grid.selected)">Yield</button>
           </td>
         </tr>   
       </tfoot>
@@ -40,7 +40,8 @@
           <td ng-bind="$index + 1"></td>    
           <!-- In the cycle prints the table cells to each row -->
           <td ng-repeat="column in grid.columns">
-            <span ng-bind="getPropertyValue(item, column.property)"></span>
+            <span class="label label-info" ng-show="$first && item.New">New</span>
+            <span ng-hide="$first" ng-bind="getPropertyValue(item, column.property)"></span>     
           </td>
         </tr>
       </tbody>
