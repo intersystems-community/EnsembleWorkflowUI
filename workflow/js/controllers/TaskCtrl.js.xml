@@ -23,7 +23,7 @@ function TaskCtrl( $scope, $routeParams, TaskSrvc ) {
         $scope.page.task = data;
       },
       function( data, status, headers, config ) {
-        $scope.page.gralert = {type: 'error', msg: 'Task is not loaded.'};  
+        $scope.page.gralert = {type: 'danger', msg: 'Task is not loaded.'};  
       });       
   };
 
@@ -31,7 +31,6 @@ function TaskCtrl( $scope, $routeParams, TaskSrvc ) {
   $scope.page.submit = function() {
     TaskSrvc.save($scope.page.task).then(
       function( data ) {
-        $scope.alerts.push( {type: 'success', msg: 'Changes saved.'} );
         // clear the form
         $scope.pageForm.$setPristine();
       },

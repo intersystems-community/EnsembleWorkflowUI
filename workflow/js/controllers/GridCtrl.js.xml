@@ -8,34 +8,34 @@
 function GridCtrl( $scope, $window ){
   
   // sorting table
-  $scope.sort = function( property, isUp ) {
-    $scope.predicate = property; 
-    $scope.isUp = !isUp;
+  $scope.page.sort = function( property, isUp ) {
+    $scope.page.predicate = property; 
+    $scope.page.isUp = !isUp;
     // sorting icon
-    $scope.sortIcon = 'glyphicon glyphicon-chevron-' + ( $scope.isUp ? 'up':'down' ) + ' pull-right';    
+    $scope.page.sortIcon = 'glyphicon glyphicon-chevron-' + ( $scope.page.isUp ? 'up':'down' ) + ' pull-right';    
   };
     
   // selecting row in table
-  $scope.select = function( item ) {
-    if ( $scope.grid.selected ) {
-      $scope.grid.selected.rowCss = '';
+  $scope.page.select = function( item ) {
+    if ( $scope.page.grid.selected ) {
+      $scope.page.grid.selected.rowCss = '';
         
-      if ( $scope.grid.selected == item ) {
-        $scope.grid.selected = null;
+      if ( $scope.page.grid.selected == item ) {
+        $scope.page.grid.selected = null;
         return;
       }
     }
       
-    $scope.grid.selected = item;
+    $scope.page.grid.selected = item;
     // change css class to highlight the row
-    $scope.grid.selected.rowCss = 'info';
+    $scope.page.grid.selected.rowCss = 'info';
   };
 
   // Method to get value of any property of the object
   // Example: 
   // var obj = {car: {body: {company: {name: 'Mazda'}}}};
   // getPropertyValue(obj, 'car.body.company.name') 
-  $scope.getPropertyValue = function( item, propertyStr ) {
+  $scope.page.getPropertyValue = function( item, propertyStr ) {
     var value = item;
 
     try {
@@ -54,15 +54,15 @@ function GridCtrl( $scope, $window ){
     return value == undefined ? '' : value;
   };
 
-  $scope.totalCnt =  function() {
+  $scope.page.totalCnt =  function() {
     return $window.document.getElementById('tasksTable').getElementsByTagName('TR').length - 2;
   };
     
-  $scope.assigned =  function( selected ) {
+  $scope.page.assigned =  function( selected ) {
   
     if ( selected ) {
       
-      if ( selected.AssignedTo == $scope.readCookie("Username") )
+      if ( selected.AssignedTo == $scope.page.readCookie("Username") )
         return true;
     }
     
@@ -70,15 +70,15 @@ function GridCtrl( $scope, $window ){
   };
     
   $scope.$watch( 'query', function() {
-    if ( $scope.grid.selected ) {
-      $scope.select( $scope.grid.selected );  
+    if ( $scope.page.grid.selected ) {
+      $scope.page.select( $scope.grid.selected );  
     }
-    $scope.grid.selected = 0;
+    $scope.page.grid.selected = 0;
   });
   
   // sort table during init (by Priority, desc)
   // to change column change columns[ index ]
-  $scope.sort( $scope.grid.columns[1].property, false );
+  $scope.page.sort( $scope.page.grid.columns[1].property, false );
 }
 
 // resolving minification problems

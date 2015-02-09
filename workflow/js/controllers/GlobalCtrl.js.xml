@@ -8,24 +8,24 @@
 function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
    $scope.page = {};
    
-   $scope.alerts = [];
+   $scope.page.alerts = [];
 
-   $scope.closeAlert = function( index ) {
-     $scope.alerts.splice( index, 1 );
+   $scope.page.closeAlert = function( index ) {
+     $scope.page.alerts.splice( index, 1 );
    };
 
    // data initialization for Worklist
-   $scope.init = function() {    
+   $scope.page.init = function() {    
      // do not need cookie, if we use doLogin()
-     if ( $scope.loginState !== 1 ) {
-       $scope.loginState = $cookieStore.get( 'LoginState' );
+     if ( $scope.page.loginState !== 1 ) {
+       $scope.page.loginState = $cookieStore.get( 'LoginState' );
      }
      
      /* grid data:
         grid title, css grid class, 
         column names, methods
      */
-        $scope.grid = {
+        $scope.page.grid = {
           caption: 'Inbox Tasks',
           cssClass:'table table-bordered table-hover',
           columns: [{name: '', property: 'New'},
@@ -39,7 +39,7 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
           edit:    $scope.page.editTask
         };
         
-        if ( $scope.loginState == 1 ) {
+        if ( $scope.page.loginState == 1 ) {
           $scope.page.loadTasks();
         }
    };
@@ -48,51 +48,49 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
    $scope.page.loadTasks = function() {
      TaskSrvc.getAll().then(
        function( data ) {
-         $scope.grid.items = data.children;
+         $scope.page.grid.items = data.children;
        },
        function( data, status, headers, config ) {
-         $scope.alerts.push( {type: 'error', msg: 'Tasks are not loaded.'} );  
+         $scope.page.alerts.push( {type: 'danger', msg: 'Tasks are not loaded.'} );  
        });      
    };
   
-  $scope.accept = function( selected ) {
+  $scope.page.accept = function( selected ) {
     if ( !selected ) 
       return;
     
     TaskSrvc.get( selected.ID ).then(
       function( data ) {
         data.Task["%Action"] = "$Accept";
-        $scope.submit( data ); 
+        $scope.page.submit( data ); 
       },
       function( data, status, headers, config ) {
-        $scope.alerts.push( {type: 'error', msg: 'Error during accept.'} );
+        $scope.page.alerts.push( {type: 'danger', msg: 'Error during accept.'} );
       });
   };
   
-    $scope.yield = function( selected ) {
+    $scope.page.yield = function( selected ) {
     if ( !selected ) 
       return;
     
     TaskSrvc.get( selected.ID ).then(
       function( data ) {
         data.Task["%Action"] = "$Relinquish";    
-        $scope.submit( data ); 
+        $scope.page.submit( data ); 
       },
       function( data, status, headers, config ) {
-        $scope.alerts.push( {type: 'error', msg: 'Error during yield.'} );      
+        $scope.page.alerts.push( {type: 'danger', msg: 'Error during yield.'} );      
       });
   };
-  
    
   // submit the worklist
-  $scope.submit = function( worklist ) {
+  $scope.page.submit = function( worklist ) {
     TaskSrvc.save(worklist).then(
       function( data ) {
-        $scope.alerts.push( {type: 'success', msg: 'Changes saved.'} );
-        $scope.init();
+        $scope.page.init();
       },
       function( data, status, headers, config ) {
-        $scope.alerts.push( {type: 'error', msg: 'Changes not saved.'} );        
+        $scope.page.alerts.push( {type: 'danger', msg: 'Changes not saved.'} );        
       });
   };
    
@@ -102,26 +100,26 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
    };
    
    // login function
-   $scope.doLogin  = function( login, password ) {
+   $scope.page.doLogin  = function( login, password ) {
      LoginSrvc.auth( login, password ).then(
        function( data ) {
-         $scope.loginState = 1;   
+         $scope.page.loginState = 1;   
          document.cookie = "Username=" + data.Username +"; Path=/;"; 
          document.cookie = "LoginState=1; Path=/;"; 
-           
+         
          console.log( "Login successful" );
         
-         $scope.init(); 
+         $scope.page.init(); 
        },
        function( data, status, headers, config ) {
-         $scope.alerts.push( {type: 'error', msg: 'Log in error!'} ); 
+         $scope.page.alerts.push( {type: 'danger', msg: 'Log in error!'} ); 
          console.log( "Log in error" );
        });
   };
 
   // logout function
-  $scope.doExit = function() {   
-    $scope.loginState = 0;  
+  $scope.page.doExit = function() {   
+    $scope.page.loginState = 0;  
     document.cookie = "Username" + "=; Path=/;";  
     document.cookie = "LoginState" + "=; Path=/;";
     document.cookie = "CSPSESSIONID" + "=; Path=" + DemoSetting+ "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
@@ -129,7 +127,7 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
   }
   
   // get cookie by name  
-  $scope.readCookie = function( name ) {
+  $scope.page.readCookie = function( name ) {
     var nameEQ = name + "=";
     var cookiesArray = document.cookie.split( ';' );
   
@@ -146,7 +144,7 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
     return null;
   };
    
-   $scope.init(); 
+   $scope.page.init(); 
 }
 
 // resolving minification problems
