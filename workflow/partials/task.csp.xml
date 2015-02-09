@@ -1,5 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
 <CSP name="partials/task.csp" application="/workflow/"><![CDATA[
-<H1> Here will be detailed view for Task </H1>]]></CSP>
+  <div class="modal-header">
+      <h3 class="modal-title">Task description</h3>
+  </div>
+  
+  <div class="modal-body">
+    <div class="container-fluid">
+          
+      <div class="row top-buffer"> 
+        <div class="col-xs-12 col-md-6">
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input id="subject" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].Request['%Subject'];" readonly>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="timeCreated">Time created</label>
+            <input id="timeCreated" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].TimeCreated;" readonly>
+          </div>
+        </div> 
+      </div>
+          
+      <div class="row"> 
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="message">Message</label>
+            <input id="message" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].Request['%Message'];" readonly>
+          </div>
+        </div>
+      </div>
+          
+      <div class="row"> 
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="role">Role</label>
+            <input id="role" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].Role.Name;" readonly>
+          </div>
+        </div>
+            
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="assignedTo">Assigned to</label>
+            <input id="assignedTo" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].AssignedTo;" readonly>
+          </div>
+        </div>                   
+      </div>
+      
+      <div class="row"> 
+        <div class="delimeter col-md-6 el-centered">
+        </div>
+      </div>
+                       
+          
+    </div>
+      
+  </div>
+  
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="page.cancel()">Cancel</button>
+  </div>
+]]></CSP>
 </Export>

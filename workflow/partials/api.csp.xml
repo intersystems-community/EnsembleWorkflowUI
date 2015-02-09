@@ -3,9 +3,10 @@
 <CSP name="partials/api.csp" application="/workflow/"><![CDATA[
 
 <div class="row-fluid">
-	<p>Примеры для GET:</p>
-	<br>
-	<p><a href="" onclick="window.open(DemoSetting.appName + '/tasks', '_blank')" >/tasks</a> - все Task<p>
+  <p>Примеры для GET:</p>
+  <br>
+  <p><a href="" onclick="window.open(DemoSetting.appName + '/tasks', '_blank')" >/tasks</a> - все сокращенные Worklist<p>
+  <p><a href="" onclick="window.open(DemoSetting.appName + '/tasks/34%7C%7CHelpDesk1', '_blank')" >/tasks/:id</a> - полный Worklist<p>
 </div>
 ]]></CSP>
 </Export>

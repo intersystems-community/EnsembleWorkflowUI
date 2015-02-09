@@ -31,29 +31,6 @@ function GridCtrl( $scope, $window ){
     $scope.page.grid.selected.rowCss = 'info';
   };
 
-  // Method to get value of any property of the object
-  // Example: 
-  // var obj = {car: {body: {company: {name: 'Mazda'}}}};
-  // getPropertyValue(obj, 'car.body.company.name') 
-  $scope.page.getPropertyValue = function( item, propertyStr ) {
-    var value = item;
-
-    try {
-      var properties = propertyStr.split( '.' );
-      for ( var i = 0; i < properties.length; i++ ) {
-        value = value[properties[i]];
-            
-        if ( value !== Object(value) )
-          break;
-        }
-    }
-    catch( ex ) {
-      console.log( 'Something goes wrong :/' );
-    }
-
-    return value == undefined ? '' : value;
-  };
-
   $scope.page.totalCnt =  function() {
     return $window.document.getElementById('tasksTable').getElementsByTagName('TR').length - 2;
   };
@@ -71,7 +48,7 @@ function GridCtrl( $scope, $window ){
     
   $scope.$watch( 'query', function() {
     if ( $scope.page.grid.selected ) {
-      $scope.page.select( $scope.grid.selected );  
+      $scope.page.select( $scope.page.grid.selected );  
     }
     $scope.page.grid.selected = 0;
   });

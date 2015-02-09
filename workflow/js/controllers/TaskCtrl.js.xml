@@ -5,27 +5,9 @@
 
 // Task controller
 // dependency injection
-function TaskCtrl( $scope, $routeParams, TaskSrvc ) {
+function TaskCtrl( $scope, $routeParams, $location, $modalInstance, TaskSrvc, task) {
   $scope.page = { task:{} };
-
-  // data initialization
-  $scope.page.init = function() {
-    if ( $routeParams.id ) {
-      $scope.page.formBtnSubmitName = "Save";
-      $scope.page.loadTask( $routeParams.id );        
-    }
-  };
-
-  // load Task by id
-  $scope.page.loadTask = function( id ) {
-    TaskSrvc.get(id).then(
-      function( data ) {
-        $scope.page.task = data;
-      },
-      function( data, status, headers, config ) {
-        $scope.page.gralert = {type: 'danger', msg: 'Task is not loaded.'};  
-      });       
-  };
+  $scope.page.task = task;
 
   // submit the task form
   $scope.page.submit = function() {
@@ -34,16 +16,18 @@ function TaskCtrl( $scope, $routeParams, TaskSrvc ) {
         // clear the form
         $scope.pageForm.$setPristine();
       },
-      function( data, status, headers, config ){
+      function( data, status, headers, config ) {
         $scope.alerts.push( {type: 'error', msg: 'Task is not saved.'} );  
       });
   };
-
-  $scope.page.init(); 
+  
+  $scope.page.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 }
 
 // resolving minification problems
-TaskCtrl.$inject = [ '$scope', '$routeParams', 'TaskSrvc' ];
+TaskCtrl.$inject = [ '$scope', '$routeParams', '$location', '$modalInstance', 'TaskSrvc', 'task' ];
 controllersModule.controller( 'TaskCtrl', TaskCtrl );
 
 ]]></CSP>

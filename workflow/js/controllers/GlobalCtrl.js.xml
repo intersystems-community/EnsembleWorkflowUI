@@ -5,7 +5,7 @@
 
 // global controller
 // Controls the authentication. Loads the full worklist for user.
-function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
+function GlobalCtrl( $scope, $location, $cookieStore, $modal, $log, LoginSrvc, TaskSrvc ) {
    $scope.page = {};
    
    $scope.page.alerts = [];
@@ -54,6 +54,17 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
          $scope.page.alerts.push( {type: 'danger', msg: 'Tasks are not loaded.'} );  
        });      
    };
+   
+  // load Task by id
+  $scope.page.loadTask = function( id ) {
+    TaskSrvc.get(id).then(
+      function( data ) {
+        $scope.page.task = data;
+      },
+      function( data, status, headers, config ) {
+        $scope.page.alerts.push({type: 'danger', msg: 'Task is not loaded.'});  
+      });       
+  };
   
   $scope.page.accept = function( selected ) {
     if ( !selected ) 
@@ -96,7 +107,7 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
    
    // go to single task page
    $scope.page.editTask = function( task ) {
-     $location.path( '/workflow/tasks/' + task.id );
+     $location.path( '/workflow/tasks/' + task.ID );
    };
    
    // login function
@@ -143,12 +154,65 @@ function GlobalCtrl( $scope, $location, $cookieStore, LoginSrvc, TaskSrvc ) {
   
     return null;
   };
+  
+  // Method to get value of any property of the object
+  // Example: 
+  // var obj = {car: {body: {company: {name: 'Mazda'}}}};
+  // getPropertyValue(obj, 'car.body.company.name') 
+  $scope.page.getPropertyValue = function( item, propertyStr ) {
+    var value = item;
+
+    try {
+      var properties = propertyStr.split( '.' );
+      for ( var i = 0; i < properties.length; i++ ) {
+        value = value[properties[i]];
+            
+        if ( value !== Object(value) )
+          break;
+        }
+    }
+    catch( ex ) {
+      console.log( 'Something goes wrong :/' );
+    }
+
+    return value == undefined ? '' : value;
+  };
+  
+  
+    $scope.page.modalOpen = function (size, id) {
+      
+      if (!id) return;
+      
+        TaskSrvc.get( id ).then(
+          function( data ) {
+            var modalInstance = $modal.open({
+              templateUrl: '/workflow/partials/task.csp',
+              controller: 'TaskCtrl',
+              size: size,
+              backdrop: true,
+              resolve: {task : function() { return data; } }
+            });
+
+            modalInstance.result.then(
+              function (selectedItem) {
+                $scope.selected = selectedItem;
+              }, 
+              function () {
+                $log.info('Modal dismissed at: ' + new Date());
+              });
+          },
+          function( data, status, headers, config ) {
+            $scope.page.alerts.push( {type: 'danger', msg: 'Task not loaded'} );        
+          });
+       
+       };
+
    
    $scope.page.init(); 
 }
 
 // resolving minification problems
-GlobalCtrl.$inject = [ '$scope', '$location', '$cookieStore', 'LoginSrvc', 'TaskSrvc' ];
+GlobalCtrl.$inject = [ '$scope', '$location', '$cookieStore', '$modal', '$log', 'LoginSrvc', 'TaskSrvc' ];
 controllersModule.controller( 'GlobalCtrl', GlobalCtrl );
 ]]></CSP>
 </Export>

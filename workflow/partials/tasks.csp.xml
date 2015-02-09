@@ -29,7 +29,7 @@
               Showing {{page.totalCnt()}} of {{page.grid.items.length}} tasks.
             </span> 
             <button class="btn btn-small btn-primary" ng-click="page.accept(page.grid.selected)"   ng-show="!page.assigned(page.grid.selected) && page.grid.selected">Accept</button>
-            <button class="btn btn-small btn-success"  ng-click="page.grid.edit(page.grid.selected)" ng-show="page.assigned(page.grid.selected)">Details</button>
+            <button class="btn btn-small btn-success"  ng-click="page.modalOpen('lg', page.grid.selected.ID)" ng-show="page.assigned(page.grid.selected)">Details</button>
             <button class="btn btn-small btn-danger"  ng-click="page.yield(page.grid.selected)" ng-show="page.assigned(page.grid.selected)">Yield</button>
           </td>
         </tr>   
