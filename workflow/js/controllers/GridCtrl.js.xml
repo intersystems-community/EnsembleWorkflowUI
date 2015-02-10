@@ -5,22 +5,22 @@
 
 // Grid controller
 // dependency injection
-function GridCtrl( $scope, $window ){
+function GridCtrl($scope, $window){
   
   // sorting table
-  $scope.page.sort = function( property, isUp ) {
+  $scope.page.sort = function(property, isUp) {
     $scope.page.predicate = property; 
     $scope.page.isUp = !isUp;
-    // sorting icon
-    $scope.page.sortIcon = 'glyphicon glyphicon-chevron-' + ( $scope.page.isUp ? 'up':'down' ) + ' pull-right';    
+    // change sorting icon
+    $scope.page.sortIcon = 'glyphicon glyphicon-chevron-' + ($scope.page.isUp ? 'up':'down') + ' pull-right';    
   };
     
   // selecting row in table
-  $scope.page.select = function( item ) {
-    if ( $scope.page.grid.selected ) {
+  $scope.page.select = function(item) {
+    if ($scope.page.grid.selected) {
       $scope.page.grid.selected.rowCss = '';
         
-      if ( $scope.page.grid.selected == item ) {
+      if ($scope.page.grid.selected == item) {
         $scope.page.grid.selected = null;
         return;
       }
@@ -35,32 +35,30 @@ function GridCtrl( $scope, $window ){
     return $window.document.getElementById('tasksTable').getElementsByTagName('TR').length - 2;
   };
     
-  $scope.page.assigned =  function( selected ) {
-  
-    if ( selected ) {
-      
-      if ( selected.AssignedTo == $scope.page.readCookie("Username") )
+  $scope.page.assigned =  function(selected) {
+    if (selected) {   
+      if (selected.AssignedTo == $scope.page.readCookie("Username"))
         return true;
-    }
-    
+    }    
     return false;
   };
-    
-  $scope.$watch( 'query', function() {
-    if ( $scope.page.grid.selected ) {
-      $scope.page.select( $scope.page.grid.selected );  
+  
+  // watching for changes in 'Search' input
+  // if there is change, reset the selection.  
+  $scope.$watch('query', function() {
+    if ($scope.page.grid.selected) {
+      $scope.page.select($scope.page.grid.selected);  
     }
-    $scope.page.grid.selected = 0;
   });
   
-  // sort table during init (by Priority, desc)
-  // to change column change columns[ index ]
-  $scope.page.sort( $scope.page.grid.columns[1].property, false );
+  // sort table after page.init (by Priority, desc)
+  // to change sorting column change 'columns[<index>]'
+  $scope.page.sort($scope.page.grid.columns[1].property, false);
 }
 
 // resolving minification problems
-GridCtrl.$inject = [ '$scope', '$window' ];
-controllersModule.controller( 'GridCtrl', GridCtrl );
+GridCtrl.$inject = ['$scope', '$window'];
+controllersModule.controller('GridCtrl', GridCtrl);
 
 ]]></CSP>
 </Export>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="js/controllers/AllTasksCtrl.js" application="/workflow/"><![CDATA[
+'use strict';
+
+// AllTasksCtrl controller
+// Controls the authentication. Loads all the worklists for user.
+function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, WorklistSrvc) {
+   $scope.page = {};
+   
+   $scope.page.alerts = [];
+   
+   $scope.page.closeAlert = function(index) {
+     if ($scope.page.alerts.length)
+       $scope.page.alerts.splice(index, 1);
+   };
+
+ /*=======================
+        Init section
+ =========================*/  
+  
+   // data initialization for Worklist
+   $scope.page.init = function() {    
+     // do not need cookie, if we use doLogin()
+     if ($scope.page.loginState !== 1) {
+       $scope.page.loginState = $cookieStore.get('LoginState');
+     }
+     
+     // grid data:
+     // grid title, css grid class, column names
+        $scope.page.grid = {
+          caption: 'Inbox Tasks',
+          cssClass:'table table-bordered table-hover',
+          columns: [{name: '', property: 'New'},
+                    {name: 'Priority', property: 'Priority'}, 
+                    {name: 'Subject', property: 'Subject'},
+                    {name: 'Message', property: 'Message'},
+                    {name: 'Role', property: 'RoleName'},
+                    {name: 'Assigned To', property: 'AssignedTo'},
+                    {name: 'Time Created', property: 'TimeCreated'},
+                    {name: 'Age', property: 'Age'}]
+        };
+        
+        if ($scope.page.loginState == 1) {
+          $scope.page.loadTasks();
+        }
+   };
+
+   // all user's tasks loading
+   $scope.page.loadTasks = function() {
+     WorklistSrvc.getAll().then(
+       function(data) {
+         $scope.page.grid.items = data.children;
+       },
+       function(data, status, headers, config) {
+         $scope.page.alerts.push({type: 'danger', msg: data.Error});  
+       });      
+   };
+   
+  // load task (worklist) by id
+  $scope.page.loadTask = function(id) {
+    WorklistSrvc.get(id).then(
+      function(data) {
+        $scope.page.task = data;
+      },
+      function(data, status, headers, config) {
+        $scope.page.alerts.push({type: 'danger', msg: data.Error});  
+      });       
+  };
+  
+  // 'Accept' button handler.
+  // Send worklist object with '$Accept' action to server.
+  $scope.page.accept = function(id) {
+    // nothing to do, if no id
+    if (!id) return;
+    
+    // get full worklist, set action and submit worklist.
+    WorklistSrvc.get(id).then(
+      function(data) {
+        data.Task["%Action"] = "$Accept";
+        $scope.page.submit(data); 
+      },
+      function(data, status, headers, config) {
+        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );
+      });
+  };
+  
+  // 'Yield' button handler.
+  // Send worklist object with '$Relinquish' action to server.
+  $scope.page.yield = function(id) {
+    // nothing to do, if no id
+    if (!id) return;
+    
+    // get full worklist, set action and submit worklist.
+    WorklistSrvc.get(id).then(
+      function(data) {
+        data.Task["%Action"] = "$Relinquish";    
+        $scope.page.submit(data); 
+      },
+      function(data, status, headers, config) {
+        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );      
+      });
+  };
+  
+  // submit the worklist object 
+  $scope.page.submit = function( worklist ) {
+    // send object to server. If ok, refresh data on page.
+    WorklistSrvc.save(worklist).then(
+      function(data) {
+         $scope.page.init();  
+      },
+      function(data, status, headers, config) {
+         $scope.page.alerts.push( {type: 'danger', msg: data.Error} );  
+      } 
+    );  
+  };
+
+/*=======================
+     Utility section
+=========================*/
+  
+  // get cookie by name  
+  $scope.page.readCookie = function(name) {
+    var nameEQ = name + "=";
+    var cookiesArray = document.cookie.split(';');
+  
+    for (var i = 0; i < cookiesArray.length; i++) {
+      var cookieElement = cookiesArray[i];
+      
+      while (cookieElement.charAt(0) == ' ') 
+        cookieElement = cookieElement.substring(1, cookieElement.length);
+      
+      if (cookieElement.indexOf(nameEQ) == 0) 
+        return cookieElement.substring(nameEQ.length, cookieElement.length);
+    }
+  
+    return null;
+  };
+  
+  // Function to get value of property of the object by name
+  // Example: 
+  // var obj = {car: {body: {company: {name: 'Mazda'}}}};
+  // getPropertyValue(obj, 'car.body.company.name') 
+  $scope.page.getPropertyValue = function( item, propertyStr ) {
+    var value = item;
+
+    try {
+      var properties = propertyStr.split( '.' );
+      for ( var i = 0; i < properties.length; i++ ) {
+        value = value[properties[i]];
+            
+        if ( value !== Object(value) )
+          break;
+        }
+    }
+    catch( ex ) {
+      console.log( 'Something goes wrong :/' );
+    }
+
+    return value == undefined ? '' : value;
+  };
+
+/*=======================
+      Modal section
+=========================*/
+
+  $scope.page.modalOpen = function (size, id) {    
+    // if no id - nothing to do
+    if (!id) return;
+      
+      // obtainig the full object by id. If ok - open modal.
+      WorklistSrvc.get(id).then(
+        function(data) {
+          // see http://angular-ui.github.io/bootstrap/ for more options
+          var modalInstance = $modal.open({
+            templateUrl: '/workflow/partials/task.csp',
+            controller: 'TaskCtrl',
+            size: size,
+            backdrop: true,
+            resolve: {
+                      task :  function() { return data; }, 
+                      submit: function() { return $scope.page.submit }
+                     }
+          });
+          
+          // onResult
+          modalInstance.result.then(
+            function (reason) {
+              if (reason === 'save') {
+                $scope.page.alerts.push( {type: 'success', msg: 'Task saved'} );   
+              }
+            }, 
+            function () {
+
+            });
+        },
+        function(data, status, headers, config) {
+          $scope.page.alerts.push( {type: 'danger', msg: data.Error} );        
+        });
+     
+     };
+
+/*=======================
+  Authentication section
+=========================*/
+    
+   // login
+   $scope.page.doLogin  = function(login, password) {
+     LoginSrvc.auth(login, password).then(
+       function(data) {
+         $scope.page.loginState = 1;   
+         
+         // set cookie to restore loginState after page reload
+         document.cookie = "Username=" + data.Username +"; Path=/;"; 
+         document.cookie = "LoginState=1; Path=/;"; 
+         
+         // refresh the data on page
+         $scope.page.init(); 
+       },
+       function(data, status, headers, config) {
+         $scope.page.alerts.push( {type: 'danger', msg: data.Error} ); 
+       });
+  };
+
+  // logout
+  $scope.page.doExit = function() {   
+    $scope.page.loginState = 0;  
+    
+    // clear cookies
+    document.cookie = "Username" + "=; Path=/;";  
+    document.cookie = "LoginState" + "=; Path=/;";
+    document.cookie = "CSPSESSIONID" + "=; Path=" + DemoSetting+ "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
+    document.cookie = "CSPWSERVERID" + "=; Path=" + DemoSetting+ "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
+  }
+    
+/*=======================
+        Initialize 
+=========================*/
+   $scope.page.init(); 
+}
+
+// resolving minification problems
+AllTasksCtrl.$inject = [ '$scope', '$location', '$cookieStore', '$modal', 'LoginSrvc', 'WorklistSrvc' ];
+controllersModule.controller( 'AllTasksCtrl', AllTasksCtrl );
+]]></CSP>
+</Export>

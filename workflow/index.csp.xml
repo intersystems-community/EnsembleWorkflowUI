@@ -22,7 +22,7 @@
   </script>
   </head>
   
-  <body ng-app="app" ng-controller="GlobalCtrl">
+  <body ng-app="app" ng-controller="AllTasksCtrl">
     <div class="container-fluid">
       <nav class="navbar navbar-default">
         <div class="container">
@@ -58,18 +58,19 @@
           </div>
         </div>
       </nav>
-      
-      <!-- Alerts -->
-      <div ng-controller="AlertController">
-          <alert ng-repeat="alert in page.alerts" type="{{alert.type}}" close="page.closeAlert($index)">{{alert.msg}}</alert>
-      </div>
-       
-      <div ng-show="page.loginState != 1" class="attention">
-        <p>Please, Log In first.</p>
-      </div> 
+   
+           
+      <div class="container"> 
         
-        
-      <div class="container">   
+        <!-- Alerts -->
+        <div ng-controller="AlertController" ng-cloak>
+            <alert ng-repeat="alert in page.alerts" type="{{alert.type}}" close="page.closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+         
+        <div ng-show="page.loginState != 1" class="attention">
+          <p>Please, Log In first.</p>
+        </div>    
+  
         <!-- Loading template -->
         <div ng-view>
         </div>
@@ -87,12 +88,12 @@
     
     <script language="javascript"  src="js/app.js"></script>
     
-    <script language="javascript"  src="js/controllers/GlobalCtrl.js"></script>
+    <script language="javascript"  src="js/controllers/AllTasksCtrl.js"></script>
     <script language="javascript"  src="js/controllers/TaskCtrl.js"></script>
     <script language="javascript"  src="js/controllers/GridCtrl.js"></script>
 
     <script language="javascript"  src="js/services/RESTSrvc.js"></script>
-    <script language="javascript"  src="js/services/TaskSrvc.js"></script>
+    <script language="javascript"  src="js/services/WorklistSrvc.js"></script>
     <script language="javascript"  src="js/services/LoginSrvc.js"></script>
   </body>
 </html>

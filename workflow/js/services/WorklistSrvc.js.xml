@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<CSP name="js/services/TaskSrvc.js" application="/workflow/"><![CDATA[
+<CSP name="js/services/WorklistSrvc.js" application="/workflow/"><![CDATA[
 'use strict';
 
-// Task service
-function TaskSrvc( RESTSrvc ) {    
+// Worklist service
+function WorklistSrvc( RESTSrvc ) {    
   return {
     // save worklist object
     save: 
@@ -12,7 +12,7 @@ function TaskSrvc( RESTSrvc ) {
             return RESTSrvc.getPromise({method: 'POST', url: DemoSetting.appName + '/tasks/' + worklist._id, data: worklist});
       },
     
-    // get Task by id 
+    // get worklist by id 
     get: 
       function( id ) {
         return RESTSrvc.getPromise({method: 'GET', url: DemoSetting.appName + '/tasks/' + id});
@@ -27,7 +27,7 @@ function TaskSrvc( RESTSrvc ) {
 };
 
 // resolving minification problems
-TaskSrvc.$inject = [ 'RESTSrvc' ];
-servicesModule.factory( 'TaskSrvc', TaskSrvc );
+WorklistSrvc.$inject = [ 'RESTSrvc' ];
+servicesModule.factory( 'WorklistSrvc', WorklistSrvc );
 ]]></CSP>
 </Export>

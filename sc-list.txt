@@ -9,12 +9,12 @@
 /workflow/fonts/glyphicons-halflings-regular.woff2
 /workflow/index.csp
 /workflow/js/app.js
-/workflow/js/controllers/GlobalCtrl.js
+/workflow/js/controllers/AllTasksCtrl.js
 /workflow/js/controllers/GridCtrl.js
 /workflow/js/controllers/TaskCtrl.js
 /workflow/js/services/LoginSrvc.js
 /workflow/js/services/RESTSrvc.js
-/workflow/js/services/TaskSrvc.js
+/workflow/js/services/WorklistSrvc.js
 /workflow/libs/angular-cookies.min.js
 /workflow/libs/angular-cookies.min.js.map
 /workflow/libs/angular-route.min.js

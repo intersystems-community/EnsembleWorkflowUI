@@ -40,27 +40,44 @@
           </div>
         </div>
             
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="form-group">
             <label for="assignedTo">Assigned to</label>
             <input id="assignedTo" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].AssignedTo;" readonly>
           </div>
-        </div>                   
+        </div>
+        
+         <div class="col-md-3">
+          <div class="form-group">
+            <label for="priority">Priority</label>
+            <input id="priority" type="text" class="form-control task-info-input" ng-model="page.task.Task['%Priority'];" readonly>
+          </div>
+        </div>                    
       </div>
       
       <div class="row"> 
         <div class="delimeter col-md-6 el-centered">
         </div>
       </div>
-                       
+        
+      <div class="row" ng-repeat="formField in page.formFields"> 
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="form{{$index}}" ng-bind="formField"></label>
+            <input id="form{{$index}}" type="text" class="form-control task-info-input" ng-model="page.formValues[formField]">
+          </div>
+        </div>
+      </div>             
           
     </div>
       
   </div>
   
   <div class="modal-footer">
-      <button class="btn btn-primary" ng-click="ok()">OK</button>
-      <button class="btn btn-warning" ng-click="page.cancel()">Cancel</button>
+      <button ng-repeat="action in page.actions" class="btn btn-primary" ng-click="page.doAction(action)" ng-bind="action"></button>  
+  
+      <button class="btn btn-success" ng-click="page.doAction('$Save')">Save</button>
+      <button class="btn btn-warning" ng-click="page.cancel()">Cancel</button>   
   </div>
 ]]></CSP>
 </Export>

@@ -5,30 +5,30 @@
 
 // Task controller
 // dependency injection
-function TaskCtrl( $scope, $routeParams, $location, $modalInstance, TaskSrvc, task) {
+function TaskCtrl($scope, $routeParams, $location, $modalInstance, WorklistSrvc, task, submit) {
   $scope.page = { task:{} };
   $scope.page.task = task;
-
-  // submit the task form
-  $scope.page.submit = function() {
-    TaskSrvc.save($scope.page.task).then(
-      function( data ) {
-        // clear the form
-        $scope.pageForm.$setPristine();
-      },
-      function( data, status, headers, config ) {
-        $scope.alerts.push( {type: 'error', msg: 'Task is not saved.'} );  
-      });
-  };
-  
+  $scope.page.actions = task.Task['%TaskStatus'].Request['%Actions'].split(',');
+  $scope.page.formFields = task.Task['%TaskStatus'].Request['%FormFields'].split(',');
+  $scope.page.formValues = task.Task['%FormValues'];
+   
   $scope.page.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+  
+  $scope.page.doAction = function(action) {
+    $scope.page.task.Task["%Action"] = action;  
+    $scope.page.task.Task['%FormValues'] = $scope.page.formValues;
+
+    submit($scope.page.task); 
+    $modalInstance.close(action);
+  }
+
 }
 
 // resolving minification problems
-TaskCtrl.$inject = [ '$scope', '$routeParams', '$location', '$modalInstance', 'TaskSrvc', 'task' ];
-controllersModule.controller( 'TaskCtrl', TaskCtrl );
+TaskCtrl.$inject = ['$scope', '$routeParams', '$location', '$modalInstance', 'WorklistSrvc', 'task', 'submit'];
+controllersModule.controller('TaskCtrl', TaskCtrl);
 
 ]]></CSP>
 </Export>
