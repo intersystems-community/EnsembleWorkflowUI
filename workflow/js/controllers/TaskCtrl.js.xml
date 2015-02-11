@@ -11,11 +11,13 @@ function TaskCtrl($scope, $routeParams, $location, $modalInstance, WorklistSrvc,
   $scope.page.actions = task.Task['%TaskStatus'].Request['%Actions'].split(',');
   $scope.page.formFields = task.Task['%TaskStatus'].Request['%FormFields'].split(',');
   $scope.page.formValues = task.Task['%FormValues'];
-   
+  
+  // dismiss modal 
   $scope.page.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
   
+  // perform a specified action
   $scope.page.doAction = function(action) {
     $scope.page.task.Task["%Action"] = action;  
     $scope.page.task.Task['%FormValues'] = $scope.page.formValues;

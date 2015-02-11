@@ -4,17 +4,17 @@
 'use strict';
 
 // Worklist service
-function WorklistSrvc( RESTSrvc ) {    
+function WorklistSrvc(RESTSrvc) {    
   return {
     // save worklist object
     save: 
-      function( worklist ) {
+      function(worklist) {
             return RESTSrvc.getPromise({method: 'POST', url: DemoSetting.appName + '/tasks/' + worklist._id, data: worklist});
       },
     
     // get worklist by id 
     get: 
-      function( id ) {
+      function(id) {
         return RESTSrvc.getPromise({method: 'GET', url: DemoSetting.appName + '/tasks/' + id});
       },
     
@@ -27,7 +27,7 @@ function WorklistSrvc( RESTSrvc ) {
 };
 
 // resolving minification problems
-WorklistSrvc.$inject = [ 'RESTSrvc' ];
-servicesModule.factory( 'WorklistSrvc', WorklistSrvc );
+WorklistSrvc.$inject = ['RESTSrvc'];
+servicesModule.factory('WorklistSrvc', WorklistSrvc);
 ]]></CSP>
 </Export>

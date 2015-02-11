@@ -4,10 +4,10 @@
 'use strict';
 
 // login service
-function LoginSrvc( RESTSrvc ) {    
+function LoginSrvc(RESTSrvc) {    
   return {
     auth: 
-      function( login, password ) {
+      function(login, password) {
         return RESTSrvc.getPromise({
                                     method: 'POST', 
                                     url: DemoSetting.appName + '/login', 
@@ -18,6 +18,6 @@ function LoginSrvc( RESTSrvc ) {
 };
 
 // resolving minification problems
-LoginSrvc.$inject = [ 'RESTSrvc' ];
-servicesModule.factory( 'LoginSrvc', LoginSrvc );]]></CSP>
+LoginSrvc.$inject = ['RESTSrvc'];
+servicesModule.factory('LoginSrvc', LoginSrvc);]]></CSP>
 </Export>

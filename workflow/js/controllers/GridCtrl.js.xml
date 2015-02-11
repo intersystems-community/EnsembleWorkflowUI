@@ -35,7 +35,8 @@ function GridCtrl($scope, $window){
     return $window.document.getElementById('tasksTable').getElementsByTagName('TR').length - 2;
   };
     
-  $scope.page.assigned =  function(selected) {
+  // if AssignedTo matches with current user - return 'true'  
+  $scope.page.isAssigned = function(selected) {
     if (selected) {   
       if (selected.AssignedTo == $scope.page.readCookie("Username"))
         return true;
