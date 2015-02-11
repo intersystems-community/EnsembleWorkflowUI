@@ -17,8 +17,8 @@
     <link rel="stylesheet" type="text/css" href="css/custom.css">
 
     <script language="javascript">
-        /* Имя приложения для работы с REST, глобальная переменная */
-        var DemoSetting = {appName: '#($GET(^Settings("WF", "WebAppName")))#'};
+        // REST web-app name, global variable
+        var RESTWebApp = {appName: '#($GET(^Settings("WF", "WebAppName")))#'};
   </script>
   </head>
   

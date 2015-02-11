@@ -229,8 +229,8 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
     // clear cookies
     document.cookie = "Username" + "=; Path=/;";  
     document.cookie = "LoginState" + "=; Path=/;";
-    document.cookie = "CSPSESSIONID" + "=; Path=" + DemoSetting+ "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
-    document.cookie = "CSPWSERVERID" + "=; Path=" + DemoSetting+ "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
+    document.cookie = "CSPSESSIONID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
+    document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
   }
     
 /*=======================

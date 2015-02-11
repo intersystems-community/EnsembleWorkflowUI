@@ -10,7 +10,7 @@ function LoginSrvc(RESTSrvc) {
       function(login, password) {
         return RESTSrvc.getPromise({
                                     method: 'POST', 
-                                    url: DemoSetting.appName + '/login', 
+                                    url: RESTWebApp.appName + '/login', 
                                     data: {'Username' : login, 'Password' : password}
                                   });
       }

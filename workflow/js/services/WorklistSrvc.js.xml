@@ -9,19 +9,19 @@ function WorklistSrvc(RESTSrvc) {
     // save worklist object
     save: 
       function(worklist) {
-            return RESTSrvc.getPromise({method: 'POST', url: DemoSetting.appName + '/tasks/' + worklist._id, data: worklist});
+            return RESTSrvc.getPromise({method: 'POST', url: RESTWebApp.appName + '/tasks/' + worklist._id, data: worklist});
       },
     
     // get worklist by id 
     get: 
       function(id) {
-        return RESTSrvc.getPromise({method: 'GET', url: DemoSetting.appName + '/tasks/' + id});
+        return RESTSrvc.getPromise({method: 'GET', url: RESTWebApp.appName + '/tasks/' + id});
       },
     
     // get all worklists for current user
     getAll: 
       function() {
-        return RESTSrvc.getPromise({method: 'GET', url: DemoSetting.appName + '/tasks'});
+        return RESTSrvc.getPromise({method: 'GET', url: RESTWebApp.appName + '/tasks'});
       }
   }
 };
