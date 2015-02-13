@@ -38,7 +38,7 @@ function GridCtrl($scope, $window){
   // if AssignedTo matches with current user - return 'true'  
   $scope.page.isAssigned = function(selected) {
     if (selected) {   
-      if (selected.AssignedTo == $scope.page.readCookie("Username"))
+      if (selected.AssignedTo == $scope.page.readCookie("User"))
         return true;
     }    
     return false;
