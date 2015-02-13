@@ -53,7 +53,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
          $scope.page.grid.items = data.children;
        },
        function(data, status, headers, config) {
-         $scope.page.alerts.push({type: 'danger', msg: data.Error});  
+         $scope.page.alerts.push( {type: 'danger', msg: data.Error} );  
        });      
    };
    
@@ -64,7 +64,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
         $scope.page.task = data;
       },
       function(data, status, headers, config) {
-        $scope.page.alerts.push({type: 'danger', msg: data.Error});  
+        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );  
       });       
   };
   
@@ -81,7 +81,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
         $scope.page.submit(data); 
       },
       function(data, status, headers, config) {
-        $scope.page.alerts.push({type: 'danger', msg: data.Error});
+        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );
       });
   };
   
@@ -98,7 +98,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
         $scope.page.submit(data); 
       },
       function(data, status, headers, config) {
-        $scope.page.alerts.push({type: 'danger', msg: data.Error});      
+        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );      
       });
   };
   
@@ -110,7 +110,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
          $scope.page.init();  
       },
       function(data, status, headers, config) {
-         $scope.page.alerts.push({type: 'danger', msg: data.Error});  
+         $scope.page.alerts.push( {type: 'danger', msg: data.Error} );  
       } 
     );  
   };
@@ -187,7 +187,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
           modalInstance.result.then(
             function (reason) {
               if (reason === 'save') {
-                $scope.page.alerts.push({type: 'success', msg: 'Task saved'});   
+                $scope.page.alerts.push( {type: 'success', msg: 'Task saved'} );   
               }
             }, 
             function () {
@@ -195,7 +195,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
             });
         },
         function(data, status, headers, config) {
-          $scope.page.alerts.push({type: 'danger', msg: data.Error});        
+          $scope.page.alerts.push( {type: 'danger', msg: data.Error} );        
         });
      
      };
@@ -218,7 +218,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
          $scope.page.init(); 
        },
        function(data, status, headers, config) {
-         $scope.page.alerts.push({type: 'danger', msg: data.Error}); 
+         $scope.page.alerts.push( {type: 'danger', msg: data.Error} ); 
        });
   };
 

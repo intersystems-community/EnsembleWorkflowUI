@@ -27,9 +27,9 @@ var app = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'servic
 
 app.config([ '$routeProvider', function( $routeProvider ) {
   $routeProvider.when( '/workflow/tasks',     {templateUrl: 'partials/tasks.csp'} );
-  $routeProvider.when( '/workflow/tasks/:id', {templateUrl: 'partials/task.csp',  controller: 'TaskCtrl'});
+  $routeProvider.when( '/workflow/tasks/:id', {templateUrl: 'partials/task.csp',  controller: 'TaskCtrl'} );
     
-  $routeProvider.otherwise({redirectTo: '/workflow/tasks'});
+  $routeProvider.otherwise( {redirectTo: '/workflow/tasks'} );
 }]);
  ]]></CSP>
 </Export>
