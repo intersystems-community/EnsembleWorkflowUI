@@ -173,7 +173,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
         function(data) {
           // see http://angular-ui.github.io/bootstrap/ for more options
           var modalInstance = $modal.open({
-            templateUrl: '/workflow/partials/task.csp',
+            templateUrl: 'partials/task.csp',
             controller: 'TaskCtrl',
             size: size,
             backdrop: true,

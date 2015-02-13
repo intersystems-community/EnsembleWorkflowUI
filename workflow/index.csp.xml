@@ -23,11 +23,12 @@
   </head>
   
   <body ng-app="app" ng-controller="AllTasksCtrl">
-    <div class="container-fluid">
-      <nav class="navbar navbar-default">
-        <div class="container">
+    
+    <nav class="navbar navbar-default">
+    
+      <div class="container-fluid">      
           
-          <div class="navbar-header">
+          <div class="navbar-header"> 
             <a class="navbar-brand" href="#">Ensemble Workflow</a>
           </div>
           
@@ -60,7 +61,7 @@
       </nav>
    
            
-      <div class="container"> 
+      <div class="container-fluid"> 
         
         <!-- Alerts -->
         <div ng-controller="AlertController" ng-cloak>
