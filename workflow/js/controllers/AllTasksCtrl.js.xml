@@ -211,7 +211,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
          $scope.page.loginState = 1;   
          
          // set cookie to restore loginState after page reload
-         document.cookie = "Username=" + data.Username +"; Path=/;"; 
+         document.cookie = "User=" + data.Username +"; Path=/;"; 
          document.cookie = "LoginState=1; Path=/;"; 
          
          // refresh the data on page
@@ -227,7 +227,7 @@ function AllTasksCtrl($scope, $location, $cookieStore, $modal, LoginSrvc, Workli
     $scope.page.loginState = 0;  
     
     // clear cookies
-    document.cookie = "Username" + "=; Path=/;";  
+    document.cookie = "User" + "=; Path=/;";  
     document.cookie = "LoginState" + "=; Path=/;";
     document.cookie = "CSPSESSIONID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
     document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
