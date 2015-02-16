@@ -55,7 +55,7 @@
         </div>                    
       </div>
       
-      <div class="row"> 
+      <div class="row" ng-show="page.formFields"> 
         <div class="delimeter col-md-6 el-centered">
         </div>
       </div>
