@@ -52,9 +52,9 @@ function GridCtrl($scope, $window){
     }
   });
   
-  // sort table after page.init (by Priority, desc)
+  // sort table after page.dataInit (by Age, asc)
   // to change sorting column change 'columns[<index>]'
-  $scope.page.sort($scope.page.grid.columns[1].property, false);
+  $scope.page.sort($scope.page.grid.columns[7].property, true);
 }
 
 // resolving minification problems

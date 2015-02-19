@@ -35,7 +35,7 @@
           <div>
             
             <div class="navbar-left">
-              <button ng-disabled="page.loginState != 1" type="button" class="btn btn-default navbar-btn" ng-click="page.init();">Refresh Worklist</button>
+              <button ng-disabled="page.loginState != 1" type="button" class="btn btn-default navbar-btn" ng-click="page.dataInit();">Refresh Worklist</button>
             </div>
             
             <div class="navbar-left">
