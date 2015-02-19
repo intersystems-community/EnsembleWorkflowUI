@@ -21,7 +21,7 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
   // grid title, css grid class, column names
   $scope.page.grid = {
     caption: 'Inbox Tasks',
-    cssClass:'table table-bordered table-hover',
+    cssClass:'table table-condensed table-bordered table-hover',
     columns: [{name: '', property: 'New'},
               {name: 'Priority', property: 'Priority'}, 
               {name: 'Subject', property: 'Subject'},
