@@ -12,9 +12,9 @@
       </caption>
       <thead>
         <tr>
-          <th>#</th>
+          <th class="text-center">#</th>
           <!-- In the cycle prints the name of the column, specify for each column click handler and the icon (sorting) -->
-          <th ng-repeat="column in page.grid.columns" ng-click="page.sort(column.property, page.isUp)">
+          <th ng-repeat="column in page.grid.columns" class="text-center" ng-click="page.sort(column.property, page.isUp)">
             <span ng-bind="column.name"></span>
               <i ng-class="page.sortIcon" ng-show="column.property == page.predicate"></i>   
           </th>
@@ -37,9 +37,9 @@
       <tbody>
         <!-- In the cycle prints the table rows (sort by specified column) -->
         <tr ng-repeat="item in page.grid.items | orderBy:page.predicate:page.isUp | filter:query" ng-class="item.rowCss" ng-click="page.select(item)">
-          <td ng-bind="$index + 1"></td>    
+          <td ng-bind="$index + 1" style="text-align: right"></td>    
           <!-- In the cycle prints the table cells to each row -->
-          <td ng-repeat="column in page.grid.columns">
+          <td ng-repeat="column in page.grid.columns" style="text-align: {{column.align}};">
             <span class="label label-info" ng-show="$first && item.New">New</span>
             <span ng-hide="$first" ng-bind="page.getPropertyValue(item, column.property)"></span>     
           </td>

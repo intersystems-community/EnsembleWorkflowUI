@@ -22,7 +22,7 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
   $scope.page.grid = {
     caption: 'Inbox Tasks',
     cssClass:'table table-condensed table-bordered table-hover',
-    columns: [{name: '', property: 'New'},
+    columns: [{name: '', property: 'New', align: 'center'},
               {name: 'Priority', property: 'Priority'}, 
               {name: 'Subject', property: 'Subject'},
               {name: 'Message', property: 'Message'},
@@ -268,6 +268,7 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
     document.cookie = "LoginState" + "=; Path=/;";
     document.cookie = "CSPSESSIONID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
     document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
+    $scope.page.grid.items = {};
   };
     
     
