@@ -11,13 +11,14 @@
       <caption class="text-left" style="padding-bottom: 5px;">
         <b ng-bind="page.grid.caption"></b>
       </caption>
-      <thead style="cursor: pointer;">
+      <thead style="cursor: pointer; vertical-align: middle;">
         <tr>
           <th class="text-center">#</th>
           <!-- In the cycle prints the name of the column, specify for each column click handler and the icon (sorting) -->
           <th ng-repeat="column in page.grid.columns" class="text-center" ng-click="page.sort(column.property, page.isUp)">
-            <span ng-bind="column.name"></span>
-              <i ng-class="page.sortIcon" ng-show="column.property == page.predicate"></i>   
+            <span ng-bind="column.name" style="padding-right: 4px;"></span>
+            <i style="margin-top: 3px;" ng-class="page.sortIcon" ng-show="column.property == page.predicate"></i>   
+            <i style="color: #ccc; margin-top: 3px;" class="fa fa-sort pull-right" ng-show="column.property != page.predicate"></i> 
           </th>
           <th class="text-center">Action</th>
         </tr>
@@ -43,9 +44,9 @@
             <span ng-hide="$first" ng-bind="page.getPropertyValue(item, column.property)"></span>     
           </td>
           <td class="text-center">
-            <div class="button button-success glyphicon glyphicon-plus-sign" ng-click="page.accept(item.ID)"   ng-show="!page.isAssigned(item)"></div>
-            <div class="button button-info glyphicon glyphicon-search"  ng-click="page.modalOpen('lg', item.ID)" ng-show="page.isAssigned(item)"></div>
-            <div class="button button-danger glyphicon glyphicon-minus-sign"  ng-click="page.yield(item.ID)" ng-show="page.isAssigned(item)"></div>
+            <div title="Accept task" class="button button-success fa fa-plus-circle" ng-click="page.accept(item.ID)"   ng-show="!page.isAssigned(item)"></div>
+            <div title="Details" class="button button-info fa fa-search"  ng-click="page.modalOpen('lg', item.ID)" ng-show="page.isAssigned(item)"></div>
+            <div title="Yield task" class="button button-danger fa fa-minus-circle"  ng-click="page.yield(item.ID)" ng-show="page.isAssigned(item)"></div>
           </td>
         </tr>
       </tbody>

@@ -12,7 +12,7 @@ function GridCtrl($scope, $window){
     $scope.page.predicate = property; 
     $scope.page.isUp = !isUp;
     // change sorting icon
-    $scope.page.sortIcon = 'glyphicon glyphicon-chevron-' + ($scope.page.isUp ? 'up':'down') + ' pull-right';    
+    $scope.page.sortIcon = 'fa fa-sort-' + ($scope.page.isUp ? 'up':'down') + ' pull-right';    
   };
     
   // selecting row in table

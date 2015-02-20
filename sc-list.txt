@@ -4,9 +4,10 @@
 /workflow/css/bootstrap-theme.min.css
 /workflow/css/bootstrap.min.css
 /workflow/css/custom.css
-/workflow/fonts/glyphicons-halflings-regular.ttf
-/workflow/fonts/glyphicons-halflings-regular.woff
-/workflow/fonts/glyphicons-halflings-regular.woff2
+/workflow/css/font-awesome.min.css
+/workflow/fonts/fontawesome-webfont.ttf
+/workflow/fonts/fontawesome-webfont.woff
+/workflow/fonts/fontawesome-webfont.woff2
 /workflow/index.csp
 /workflow/js/app.js
 /workflow/js/controllers/AllTasksCtrl.js
