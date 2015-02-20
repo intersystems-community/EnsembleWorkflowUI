@@ -14,6 +14,11 @@ body {
   body {
     padding-top: 239px;
   }
+  
+  .navbar-form {  
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+  }  
 }
 
 @media(min-width:768px) {
@@ -121,16 +126,13 @@ div.button-info:hover {
 
 .table-tasks tr {
   transition: background 0.6s ease;
-  -webkit-transition-property: background;
-  -webkit-transition-duration: 0.6s;
-  -webkit-transition-timing-function: ease;
+  -webkit-transition: background 0.6s ease;
+
 }
 
 .table-tasks>tbody tr:hover {
   transition: background 0.1s ease-out;
-  -webkit-transition-property: background;
-  -webkit-transition-duration: 0.1s;
-  -webkit-transition-timing-function: ease-out;
+  -webkit-transition: background 0.1s ease-out;
 }
 
 .table-tasks>thead th:hover {
@@ -139,9 +141,19 @@ div.button-info:hover {
 
 .table-tasks>tbody>tr>td, .table-tasks>tfoot>tr>td { 
   transition: background 0.7s ease;
-  -webkit-transition-property: background;
-  -webkit-transition-duration: 0.7s;
-  -webkit-transition-timing-function: ease;
+  -webkit-transition: background 0.7s ease;
+
+}
+
+/* alert styles */
+
+.alert {
+  opacity: 0.7; 
+  cursor: pointer;
+}
+
+.alert:hover { 
+  opacity: 1; 
 }
 ]]></CSP>
 </Export>

@@ -12,7 +12,7 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
   
   $scope.page.lastGainedData = "";
   
-  $scope.page.loading = true;
+  $scope.page.loading = false;
 
   $scope.page.closeAlert = function(index) {
    if ($scope.page.alerts.length)
@@ -275,6 +275,7 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
     document.cookie = "CSPSESSIONID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
     document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
     $scope.page.grid.items = null;
+    $scope.page.loading = false;
     $scope.page.lastGainedData = "";
   };
     
