@@ -6,51 +6,54 @@
   </div>
   
   <div ng-hide="page.loginState != 1" ng-controller="GridCtrl">
+ 
+    <div class="panel panel-default">
   
-    <table class="table-tasks" ng-class="page.grid.cssClass" id="tasksTable">
-      <caption class="text-left" style="padding-bottom: 5px;">
-        <b ng-bind="page.grid.caption"></b>
-      </caption>
-      <thead style="cursor: pointer; vertical-align: middle;">
-        <tr>
-          <th class="text-center">#</th>
-          <!-- In the cycle prints the name of the column, specify for each column click handler and the icon (sorting) -->
-          <th ng-repeat="column in page.grid.columns" class="text-center" ng-click="page.sort(column.property, page.isUp)">
-            <span ng-bind="column.name" style="padding-right: 4px;"></span>
-            <i style="margin-top: 3px;" ng-class="page.sortIcon" ng-show="column.property == page.predicate"></i>   
-            <i style="color: #ccc; margin-top: 3px;" class="fa fa-sort pull-right" ng-show="column.property != page.predicate"></i> 
-          </th>
-          <th class="text-center">Action</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr>
-          <!-- Control buttons and messages -->
-          <td colspan="{{page.grid.columns.length + 2}}">
-            <p ng-hide="page.grid.items.length">There is no task(s) for current user.</p>
-            <span>
-              Showing {{page.totalCnt()}} of {{page.grid.items.length}} task(s).
-            </span> 
-          </td>
-        </tr>   
-      </tfoot>
-      <tbody style="cursor: default;">
-        <!-- In the cycle prints the table rows (sort by specified column) -->
-        <tr ng-repeat="item in page.grid.items | orderBy:page.predicate:page.isUp | filter:query" ng-class="item.rowCss">
-          <td ng-bind="$index + 1" class="text-right"></td>    
-          <!-- In the cycle prints the table cells to each row -->
-          <td ng-repeat="column in page.grid.columns" style="text-align: {{column.align}};" ng-click="page.select(item)">
-            <span class="label label-info" ng-show="$first && item.New">New</span>
-            <span ng-hide="$first" ng-bind="page.getPropertyValue(item, column.property)"></span>     
-          </td>
-          <td class="text-center">
-            <div title="Accept task" class="button button-success fa fa-plus-circle" ng-click="page.accept(item.ID)"   ng-show="!page.isAssigned(item)"></div>
-            <div title="Details" class="button button-info fa fa-search"  ng-click="page.modalOpen('lg', item.ID)" ng-show="page.isAssigned(item)"></div>
-            <div title="Yield task" class="button button-danger fa fa-minus-circle"  ng-click="page.yield(item.ID)" ng-show="page.isAssigned(item)"></div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table-tasks" ng-class="page.grid.cssClass" id="tasksTable">
+        <caption class="text-left" style="padding-bottom: 5px;">
+          <b ng-bind="page.grid.caption"></b>
+        </caption>
+        <thead style="cursor: pointer; vertical-align: middle;">
+          <tr>
+            <th class="text-center">#</th>
+            <!-- In the cycle prints the name of the column, specify for each column click handler and the icon (sorting) -->
+            <th ng-repeat="column in page.grid.columns" class="text-center" ng-click="page.sort(column.property, page.isUp)">
+              <span ng-bind="column.name" style="padding-right: 4px;"></span>
+              <i style="margin-top: 3px;" ng-class="page.sortIcon" ng-show="column.property == page.predicate"></i>   
+              <i style="color: #ccc; margin-top: 3px;" class="fa fa-sort pull-right" ng-show="column.property != page.predicate"></i> 
+            </th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <!-- Control buttons and messages -->
+            <td colspan="{{page.grid.columns.length + 2}}">
+              <p ng-hide="page.grid.items.length">There is no task(s) for current user.</p>
+              <span>
+                Showing {{page.totalCnt()}} of {{page.grid.items.length}} task(s).
+              </span> 
+            </td>
+          </tr>   
+        </tfoot>
+        <tbody style="cursor: default;">
+          <!-- In the cycle prints the table rows (sort by specified column) -->
+          <tr ng-repeat="item in page.grid.items | orderBy:page.predicate:page.isUp | filter:query" ng-class="item.rowCss">
+            <td ng-bind="$index + 1" class="text-right"></td>    
+            <!-- In the cycle prints the table cells to each row -->
+            <td ng-repeat="column in page.grid.columns" style="text-align: {{column.align}};" ng-click="page.select(item)">
+              <span class="label label-info" ng-show="$first && item.New">New</span>
+              <span ng-hide="$first" ng-bind="page.getPropertyValue(item, column.property)"></span>     
+            </td>
+            <td class="text-center">
+              <div title="Accept task" class="button button-success fa fa-plus-circle" ng-click="page.accept(item.ID)"   ng-show="!page.isAssigned(item)"></div>
+              <div title="Details" class="button button-info fa fa-search"  ng-click="page.modalOpen('lg', item.ID)" ng-show="page.isAssigned(item)"></div>
+              <div title="Yield task" class="button button-danger fa fa-minus-circle"  ng-click="page.yield(item.ID)" ng-show="page.isAssigned(item)"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="span1">
   </div>
