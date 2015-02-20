@@ -2,7 +2,7 @@
 <Export generator="Cache" version="25">
 <CSP name="css/custom.css" application="/workflow/"><![CDATA[
 html {
-  height: 100%;
+  height: 100%; 
 }
 
 body {
@@ -28,6 +28,11 @@ body {
 @media(min-width:1200px){}
 */
 
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+/* fix modal backdrop in bootstrap 3.3+ */
 .modal-backdrop {
   bottom: 0;
 }
@@ -43,7 +48,7 @@ body {
    cursor: default !important;
 }
 
-#tasksTable {
+.table-tasks {
   -ms-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -72,8 +77,45 @@ body {
   margin: 10px auto;
 }
 
-[ng\:cloak], [ng-cloak], .ng-cloak {
-  display: none !important;
+
+/* custom buttons */
+
+div.button {
+  display: inline-block;
+  border-radius: 2px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  cursor: pointer;
 }
+
+div.button-success {
+  background: #60d67b;
+}
+
+div.button-success:hover {
+  background: #54c46e;
+}
+
+div.button-danger {
+  background: #ed0707;
+}
+
+div.button-danger:hover {
+  background: #ca3b37;
+}
+
+div.button-info {
+  background: #2076c1;
+}
+
+div.button-info:hover {
+  background: #2a6395;
+}
+
 ]]></CSP>
 </Export>

@@ -5,9 +5,9 @@
   <div class="span1">
   </div>
   
-  <div ng-show="page.loginState == 1" ng-controller="GridCtrl">
+  <div ng-hide="page.loginState != 1" ng-controller="GridCtrl">
   
-    <table ng-class="page.grid.cssClass" style="cursor: pointer;" id="tasksTable">
+    <table class="table-tasks" ng-class="page.grid.cssClass" style="cursor: pointer;">
       <caption class="text-left" style="padding-bottom: 5px;">
         <b ng-bind="page.grid.caption"></b>
       </caption>
@@ -19,30 +19,33 @@
             <span ng-bind="column.name"></span>
               <i ng-class="page.sortIcon" ng-show="column.property == page.predicate"></i>   
           </th>
+          <th class="text-center">Action</th>
         </tr>
       </thead>
       <tfoot>
         <tr>
           <!-- Control buttons and messages -->
-          <td colspan="{{page.grid.columns.length + 1}}">
+          <td colspan="{{page.grid.columns.length + 2}}">
             <p ng-hide="page.grid.items.length">There is no task(s) for current user.</p>
-            <span ng-hide="(page.grid.items.length == 0) || page.grid.selected">
+            <span>
               Showing {{page.totalCnt()}} of {{page.grid.items.length}} task(s).
             </span> 
-            <button class="btn btn-small btn-success" ng-click="page.accept(page.grid.selected.ID)"   ng-show="!page.isAssigned(page.grid.selected) && page.grid.selected">Accept</button>
-            <button class="btn btn-small btn-primary"  ng-click="page.modalOpen('lg', page.grid.selected.ID)" ng-show="page.isAssigned(page.grid.selected)">Details</button>
-            <button class="btn btn-small btn-danger"  ng-click="page.yield(page.grid.selected.ID)" ng-show="page.isAssigned(page.grid.selected)">Yield</button>
           </td>
         </tr>   
       </tfoot>
       <tbody>
         <!-- In the cycle prints the table rows (sort by specified column) -->
-        <tr ng-repeat="item in page.grid.items | orderBy:page.predicate:page.isUp | filter:query" ng-class="item.rowCss" ng-click="page.select(item)">
-          <td ng-bind="$index + 1" style="text-align: right"></td>    
+        <tr ng-repeat="item in page.grid.items | orderBy:page.predicate:page.isUp | filter:query" ng-class="item.rowCss">
+          <td ng-bind="$index + 1" class="text-right"></td>    
           <!-- In the cycle prints the table cells to each row -->
-          <td ng-repeat="column in page.grid.columns" style="text-align: {{column.align}};">
+          <td ng-repeat="column in page.grid.columns" style="text-align: {{column.align}};" ng-click="page.select(item)">
             <span class="label label-info" ng-show="$first && item.New">New</span>
             <span ng-hide="$first" ng-bind="page.getPropertyValue(item, column.property)"></span>     
+          </td>
+          <td class="text-center">
+            <div class="button button-success glyphicon glyphicon-plus-sign" ng-click="page.accept(item.ID)"   ng-show="!page.isAssigned(item)"></div>
+            <div class="button button-info glyphicon glyphicon-search"  ng-click="page.modalOpen('lg', item.ID)" ng-show="page.isAssigned(item)"></div>
+            <div class="button button-danger glyphicon glyphicon-minus-sign"  ng-click="page.yield(item.ID)" ng-show="page.isAssigned(item)"></div>
           </td>
         </tr>
       </tbody>
