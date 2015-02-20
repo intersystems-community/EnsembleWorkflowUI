@@ -48,7 +48,7 @@
             </div>
             
             <form role="form" class="navbar-form pull-right" ng-show="page.loginState != 1" ng-model="user"
-              ng-submit="page.doLogin(user.Login, user.PasswordSetter); user='';">  
+              ng-submit="page.doLogin(user.Login, user.PasswordSetter); user='';" ng-cloak>  
               <input type="text" class="form-control" ng-model="user.Login" placeholder="Username">
               <input type="password" class="form-control" ng-model="user.PasswordSetter"  placeholder="Password">
               <button type="submit" class="btn btn-default">Sign In</button>
@@ -68,7 +68,7 @@
             <alert ng-repeat="alert in page.alerts" type="{{alert.type}}" close="page.closeAlert($index)">{{alert.msg}}</alert>
         </div>
          
-        <div ng-show="page.loginState != 1" class="attention">
+        <div ng-show="page.loginState != 1" class="attention" ng-cloak>
           <p>Please, Log In first.</p>
         </div>    
   
