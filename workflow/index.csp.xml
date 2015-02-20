@@ -80,21 +80,22 @@
     </div>
     
     <!-- Hooking scripts -->  
-    <script language="javascript"  src="libs/jquery-1.11.2.min.js"></script>  
-    <script language="javascript"  src="libs/bootstrap.min.js"></script>
-    <script language="javascript"  src="libs/angular.min.js"></script>
-    <script language="javascript"  src="libs/angular-route.min.js"></script>
-    <script language="javascript"  src="libs/ui-bootstrap-custom-tpls-0.12.0.min.js"></script>
+    <script language="javascript" src="libs/angular.min.js"></script>
+    <script language="javascript" src="libs/angular-route.min.js"></script>
+    <script language="javascript" src="libs/ui-bootstrap-custom-tpls-0.12.0.min.js"></script>
     
-    <script language="javascript"  src="js/app.js"></script>
-    
-    <script language="javascript"  src="js/controllers/AllTasksCtrl.js"></script>
-    <script language="javascript"  src="js/controllers/TaskCtrl.js"></script>
-    <script language="javascript"  src="js/controllers/GridCtrl.js"></script>
+    <script language="javascript" src="js/app.js"></script>
 
-    <script language="javascript"  src="js/services/RESTSrvc.js"></script>
-    <script language="javascript"  src="js/services/WorklistSrvc.js"></script>
-    <script language="javascript"  src="js/services/LoginSrvc.js"></script>
+    <script language="javascript" src="js/services/RESTSrvc.js"></script>
+    <script language="javascript" src="js/services/WorklistSrvc.js"></script>
+    <script language="javascript" src="js/services/LoginSrvc.js"></script>
+    
+    <script language="javascript" src="js/controllers/AllTasksCtrl.js"></script>
+    <script language="javascript" src="js/controllers/TaskCtrl.js"></script>
+    <script language="javascript" src="js/controllers/GridCtrl.js"></script>
+    
+    <script language="javascript" defer src="libs/jquery-1.11.2.min.js"></script>  
+    <script language="javascript" defer src="libs/bootstrap.min.js"></script>
   </body>
 </html>
 ]]></CSP>
