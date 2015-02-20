@@ -2,7 +2,7 @@
 <Export generator="Cache" version="25">
 <CSP name="css/custom.css" application="/workflow/"><![CDATA[
 html {
-  height: 100%;
+  height: 100%; 
 }
 
 body {
@@ -134,7 +134,7 @@ div.button-info:hover {
   background: #ccc !important;
 }
 
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td { 
+.table-tasks>thead>tr>th, .table-tasks>tbody>tr>th, .table-tasks>tfoot>tr>th, .table-tasks>thead>tr>td, .table-tasks>tbody>tr>td, .table-tasks>tfoot>tr>td { 
   transition: background 0.7s ease;
   -webkit-transition-property: background;
   -webkit-transition-duration: 0.7s;
