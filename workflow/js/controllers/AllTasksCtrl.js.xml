@@ -64,7 +64,7 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
      function(data, status, headers, config) {
        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );  
      })
-     ['finally'](function() {
+     .then(function() {
        var date = new Date();
 
        var hours = (date.getHours() > 9) ? date.getHours() : '0' + date.getHours();
@@ -74,12 +74,8 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
        $scope.page.grid.updateTime = ' [Last Update: ' + hours;
        $scope.page.grid.updateTime += ':' + minutes + ':' + secs + ']';
        
-       $scope.page.loading = false;
-       
-         
-       setTimeout(function() { $scope.page.timeCSS = "new"; }, 100);
-       $scope.page.timeCSS = "empty transition";
-       
+       $scope.page.loading = false;               
+
      });      
   };
    

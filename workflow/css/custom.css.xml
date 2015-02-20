@@ -2,7 +2,7 @@
 <Export generator="Cache" version="25">
 <CSP name="css/custom.css" application="/workflow/"><![CDATA[
 html {
-  height: 100%; 
+  height: 100%;
 }
 
 body {
@@ -162,21 +162,6 @@ div.button-info:hover {
 
 .alert:hover { 
   opacity: 1; 
-}
-
-/* time style */
-
-.time {
-  font-weight: bold;
-}
-
-.time.new {
-  color: #0cd348 !important;
-}
-
-.time.transition {
-  -webkit-transition: color 5s ease;
-  transition: color 5s ease;
 }
 ]]></CSP>
 </Export>
