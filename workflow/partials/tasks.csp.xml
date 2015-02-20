@@ -6,6 +6,7 @@
   </div>
   
   <div ng-show="page.loginState == 1" ng-controller="GridCtrl">
+  
     <table ng-class="page.grid.cssClass" style="cursor: pointer;" id="tasksTable">
       <caption class="text-left" style="padding-bottom: 5px;">
         <b ng-bind="page.grid.caption"></b>
