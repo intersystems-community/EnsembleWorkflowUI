@@ -131,7 +131,6 @@ div.button-info:hover {
   -webkit-transition-property: background;
   -webkit-transition-duration: 0.1s;
   -webkit-transition-timing-function: ease-out;
-  background: #ccc !important;
 }
 
 .table-tasks>thead th:hover {
