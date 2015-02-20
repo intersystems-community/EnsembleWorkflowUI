@@ -40,6 +40,12 @@ body {
   margin: 0 auto;
 }
 
+.progress-condensed {
+  height: 15px !important;  
+  font-size: 11px !important;
+  line-height: 15px !important;
+}
+
 .delimeter {
   height: 1px;
   background: #ccc;
