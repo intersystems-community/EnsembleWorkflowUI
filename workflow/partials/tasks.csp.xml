@@ -7,11 +7,11 @@
   
   <div ng-hide="page.loginState != 1" ng-controller="GridCtrl">
   
-    <table class="table-tasks" ng-class="page.grid.cssClass" style="cursor: pointer;" id="tasksTable">
+    <table class="table-tasks" ng-class="page.grid.cssClass" id="tasksTable">
       <caption class="text-left" style="padding-bottom: 5px;">
         <b ng-bind="page.grid.caption"></b>
       </caption>
-      <thead>
+      <thead style="cursor: pointer;">
         <tr>
           <th class="text-center">#</th>
           <!-- In the cycle prints the name of the column, specify for each column click handler and the icon (sorting) -->
@@ -33,7 +33,7 @@
           </td>
         </tr>   
       </tfoot>
-      <tbody>
+      <tbody style="cursor: default;">
         <!-- In the cycle prints the table rows (sort by specified column) -->
         <tr ng-repeat="item in page.grid.items | orderBy:page.predicate:page.isUp | filter:query" ng-class="item.rowCss">
           <td ng-bind="$index + 1" class="text-right"></td>    
