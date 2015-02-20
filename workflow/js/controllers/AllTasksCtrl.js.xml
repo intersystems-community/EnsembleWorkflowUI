@@ -10,8 +10,6 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
 
   $scope.page.alerts = [];
   
-  $scope.page.lastGainedData = "";
-  
   $scope.page.loading = false;
 
   $scope.page.closeAlert = function(index) {
@@ -65,20 +63,12 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
    $scope.page.loading = true;
    
    WorklistSrvc.getAll().then(
-     function(data) {      
-           
-       if ($scope.page.lastGainedData !== JSON.stringify(data.children, 
-          ["ID", "New", "Priority", "Subject", "Message", "RoleName", "AssignedTo", "TimeCreated"]) ) {
-         
-         $scope.page.lastGainedData = JSON.stringify(data.children, 
-          ["ID", "New", "Priority", "Subject", "Message", "RoleName", "AssignedTo", "TimeCreated"]);
-         
-         $scope.page.grid.items = data.children;
-         $scope.page.grid.selected = null;
-         
-         if ( !$scope.page.checkUserValidity() ) {
-           $scope.page.doExit();  
-         }
+     function(data) {                 
+       $scope.page.grid.items = data.children;
+       $scope.page.grid.selected = null;
+       
+       if ( !$scope.page.checkUserValidity() ) {
+         $scope.page.doExit();  
        }
      },
      function(data, status, headers, config) {
@@ -276,7 +266,6 @@ function AllTasksCtrl($scope, $location, $modal, LoginSrvc, WorklistSrvc) {
     document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
     $scope.page.grid.items = null;
     $scope.page.loading = false;
-    $scope.page.lastGainedData = "";
   };
     
     
