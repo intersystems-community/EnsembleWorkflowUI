@@ -24,7 +24,7 @@
   
   <body ng-app="app" ng-controller="AllTasksCtrl">
     
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" style="position: fixed; width:100%;">
     
       <div class="container-fluid">      
           
@@ -60,7 +60,9 @@
         </div>
       </nav>
    
-           
+      <!-- compensate fixed navbar height -->   
+      <div class="navbar navbar-default" style="visibility: hidden;"></div>
+        
       <div class="container-fluid"> 
         
         <div style="height: 20px;">
