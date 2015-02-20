@@ -5,7 +5,7 @@
   <div class="span1">
   </div>
   
-  <div ng-hide="page.loginState != 1" ng-controller="GridCtrl">
+  <div ng-hide="page.loginState != 1 || (page.loading && !page.totalCnt())" ng-controller="GridCtrl">
  
     <div class="panel panel-default top-buffer">
       <table class="table-tasks" ng-class="page.grid.cssClass" id="tasksTable">
