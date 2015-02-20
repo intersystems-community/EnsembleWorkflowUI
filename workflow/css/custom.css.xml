@@ -118,6 +118,7 @@ div.button-info:hover {
 /* table styles */
 
 .table-tasks {
+   font-size: 13px;
   -ms-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -127,6 +128,7 @@ div.button-info:hover {
 .table-tasks tr {
   transition: background 0.6s ease;
   -webkit-transition: background 0.6s ease;
+  vertical-align: middle !important;
 
 }
 
@@ -139,10 +141,16 @@ div.button-info:hover {
    background: #efefef !important;
 }
 
-.table-tasks>tbody>tr>td, .table-tasks>tfoot>tr>td { 
+.table-tasks>tbody>tr>td, .table-tasks>tfoot>tr>td {
+  padding: 3px !important;
+  vertical-align: middle !important;
   transition: background 0.7s ease;
   -webkit-transition: background 0.7s ease;
 
+}
+
+.table-tasks>tbody>tr>td:last-child {
+  min-width: 60px;
 }
 
 /* alert styles */
