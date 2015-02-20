@@ -33,7 +33,7 @@
           </div>
           
           <div class="navbar-left">
-            <button ng-cloak ng-disabled="page.loginState != 1" type="button" class="btn btn-default navbar-btn" 
+            <button ng-cloak ng-disabled="page.loginState != 1 || page.loading" type="button" class="btn btn-default navbar-btn" 
                     ng-click="page.dataInit();">Refresh Worklist</button>
           </div>
             

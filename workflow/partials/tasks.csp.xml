@@ -10,7 +10,7 @@
     <div class="panel panel-default top-buffer">
       <table class="table-tasks" ng-class="page.grid.cssClass" id="tasksTable">
         <caption class="text-left" style="padding-bottom: 5px;">
-          <b ng-bind="page.grid.caption"></b>
+          <b ng-bind="page.grid.caption"></b><span class="time {{page.timeCSS}}" ng-bind="page.grid.updateTime"></span>
         </caption>
         <thead style="cursor: pointer; vertical-align: middle;">
           <tr>
