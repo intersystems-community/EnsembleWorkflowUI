@@ -35,14 +35,14 @@
           <div>
             
             <div class="navbar-left">
-              <button ng-disabled="page.loginState != 1" type="button" class="btn btn-default navbar-btn" ng-click="page.dataInit();">Refresh Worklist</button>
+              <button ng-cloak ng-disabled="page.loginState != 1" type="button" class="btn btn-default navbar-btn" ng-click="page.dataInit();">Refresh Worklist</button>
             </div>
             
             <div class="navbar-left">
               <form role="search" class="navbar-form">
                 <div class="form-group">
                   <label for="search" class="sr-only">Search</label>
-                  <input ng-disabled="page.loginState != 1" type="text" class="form-control" placeholder="Search" id="search" ng-model="query">
+                  <input ng-cloak ng-disabled="page.loginState != 1" type="text" class="form-control" placeholder="Search" id="search" ng-model="query">
                 </div>
               </form>
             </div>
@@ -53,7 +53,7 @@
               <input type="password" class="form-control" ng-model="user.PasswordSetter"  placeholder="Password">
               <button type="submit" class="btn btn-default">Sign In</button>
             </form>
-            <button ng-show="page.loginState == 1" type="button" ng-click="page.doExit();" class="btn navbar-btn btn-default pull-right">Logout, 
+            <button ng-show="page.loginState == 1" type="button" ng-click="page.doExit();" class="btn navbar-btn btn-default pull-right" ng-cloak>Logout, 
               <span class="label label-info" ng-bind="page.readCookie('User')"></span>
             </button>
           </div>
