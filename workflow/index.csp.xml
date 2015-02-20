@@ -24,7 +24,7 @@
   
   <body ng-app="app" ng-controller="AllTasksCtrl">
     
-    <nav class="navbar navbar-default" style="position: fixed; width:100%;">
+    <nav class="navbar navbar-default navbar-fixed-top">
     
       <div class="container-fluid">      
           
@@ -35,14 +35,16 @@
           <div>
             
             <div class="navbar-left">
-              <button ng-cloak ng-disabled="page.loginState != 1" type="button" class="btn btn-default navbar-btn" ng-click="page.dataInit();">Refresh Worklist</button>
+              <button ng-cloak ng-disabled="page.loginState != 1" type="button" class="btn btn-default navbar-btn" 
+                      ng-click="page.dataInit();">Refresh Worklist</button>
             </div>
             
             <div class="navbar-left">
               <form role="search" class="navbar-form">
                 <div class="form-group">
                   <label for="search" class="sr-only">Search</label>
-                  <input ng-cloak ng-disabled="page.loginState != 1" type="text" class="form-control" placeholder="Search" id="search" ng-model="query">
+                  <input ng-cloak ng-disabled="page.loginState != 1" type="text" class="form-control" 
+                         placeholder="Search" id="search" ng-model="query">
                 </div>
               </form>
             </div>
@@ -58,10 +60,7 @@
             </button>
           </div>
         </div>
-      </nav>
-   
-      <!-- compensate fixed navbar height -->   
-      <div class="navbar navbar-default" style="visibility: hidden;"></div>
+      </nav> 
         
       <div class="container-fluid"> 
         
@@ -105,6 +104,7 @@
     
     <script language="javascript" src="libs/jquery-1.11.2.min.js"></script>  
     <script language="javascript" src="libs/bootstrap.min.js"></script>
+    
   </body>
 </html>
 ]]></CSP>

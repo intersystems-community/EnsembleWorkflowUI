@@ -9,6 +9,25 @@ body {
   min-height: 100%;
 }
 
+/* compensate fixed navbar height */
+@media(max-width:767px) {
+  body {
+    padding-top: 239px;
+  }
+}
+
+@media(min-width:768px) {
+  body {
+    padding-top: 67px;
+  }
+}
+
+/*
+@media(min-width:992px){}
+
+@media(min-width:1200px){}
+*/
+
 .modal-backdrop {
   bottom: 0;
 }
@@ -55,5 +74,6 @@ body {
 
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
-}]]></CSP>
+}
+]]></CSP>
 </Export>
