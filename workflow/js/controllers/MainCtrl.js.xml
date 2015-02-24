@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="js/controllers/MainCtrl.js" application="/workflow/"><![CDATA[
+'use strict';
+
+// Main controller
+// Controls the authentication. Loads all the worklists for user.
+function MainCtrl($scope, $location, $cookies, LoginSrvc) {
+  $scope.page = {};
+  $scope.page.alerts = [];
+  $scope.page.loading = false;
+
+  $scope.page.closeAlert = function(index) {
+   if ($scope.page.alerts.length)
+     $scope.page.alerts.splice(index, 1);
+  };
+
+
+  /* Utility section */
+
+  // get cookie by name  
+  $scope.page.readCookie = function(name) {
+    return $cookies[name];
+  };
+  
+  // Function to get value of property of the object by name
+  // Example: 
+  // var obj = {car: {body: {company: {name: 'Mazda'}}}};
+  // getPropertyValue(obj, 'car.body.company.name') 
+  $scope.page.getPropertyValue = function(item, propertyStr) {
+    var value = item;
+
+    try {
+      var properties = propertyStr.split('.');
+      
+      for (var i = 0; i < properties.length; i++) {
+        value = value[properties[i]];
+            
+        if (value !== Object(value))
+          break;
+      }
+    }
+    catch(ex) {
+      console.log('Something goes wrong :/');
+    }
+
+    return value == undefined ? '' : value;
+  };
+
+  
+  /* Authentication section */
+  
+  $scope.page.makeBaseAuth = function(user, password) {
+    var token = user + ':' + password;
+    var hash = btoa(token);
+    return "Basic " + hash;
+  } 
+    
+  // login
+  $scope.page.doLogin = function(login, password) {     
+    LoginSrvc.auth($scope.page.makeBaseAuth(login, password)).then(
+      function(data) {
+        $scope.page.loginState = 1; 
+       
+        // set cookie to restore loginState after page reload
+        $cookies['User'] = login;
+        $cookies['LoginState'] = 1; 
+       
+        // refresh the data on page
+        $scope.page.dataInit(); 
+      },
+      function(data, status, headers, config) {
+        if (data.Error) {
+          $scope.page.alerts.push( {type: 'danger', msg: data.Error} ); 
+        }
+        else {
+          $scope.page.alerts.push( {type: 'danger', msg: "Login unsuccessful"} );
+        }
+    });
+  };
+
+  // logout
+  $scope.page.doExit = function() {   
+    $scope.page.loginState = 0;  
+    
+    // clear cookies
+    delete $cookies['User'];
+    delete $cookies['LoginState'];
+    document.cookie = "CSPSESSIONID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
+    document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
+    $scope.page.grid.items = null;
+    $scope.page.loading = false;
+  };
+
+}
+
+// resolving minification problems
+MainCtrl.$inject = ['$scope', '$location', '$cookies', 'LoginSrvc'];
+controllersModule.controller('MainCtrl', MainCtrl);
+]]></CSP>
+</Export>

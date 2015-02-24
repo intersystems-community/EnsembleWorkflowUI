@@ -10,9 +10,9 @@
 /workflow/fonts/fontawesome-webfont.woff2
 /workflow/index.csp
 /workflow/js/app.js
-/workflow/js/controllers/AllTasksCtrl.js
-/workflow/js/controllers/GridCtrl.js
+/workflow/js/controllers/MainCtrl.js
 /workflow/js/controllers/TaskCtrl.js
+/workflow/js/controllers/TasksGridCtrl.js
 /workflow/js/services/LoginSrvc.js
 /workflow/js/services/RESTSrvc.js
 /workflow/js/services/WorklistSrvc.js

@@ -7,11 +7,11 @@
 function LoginSrvc(RESTSrvc) {    
   return {
     auth: 
-      function(login, password) {
+      function(baseAuth) {
         return RESTSrvc.getPromise({
-                                    method: 'POST', 
-                                    url: RESTWebApp.appName + '/login', 
-                                    data: {'Username' : login, 'Password' : password}
+                                    method: 'GET', 
+                                    url: RESTWebApp.appName + '/test', 
+                                    headers: {'Authorization' : baseAuth }
                                   });
       }
   }

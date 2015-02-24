@@ -23,7 +23,7 @@ $routeParams.id - :id parameter.
 
 var servicesModule    = angular.module('servicesModule',[]);
 var controllersModule = angular.module('controllersModule', []);
-var app = angular.module('app', ['ngRoute', 'ui.bootstrap', 'servicesModule', 'controllersModule']);
+var app = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'servicesModule', 'controllersModule']);
 
 app.config([ '$routeProvider', function( $routeProvider ) {
   $routeProvider.when( '/tasks',     {templateUrl: 'partials/tasks.csp'} );
