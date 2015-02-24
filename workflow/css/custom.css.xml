@@ -9,6 +9,10 @@ body {
   min-height: 100%;
 }
 
+textarea {
+   resize: none;
+}
+
 /* compensate fixed navbar height */
 @media(max-width:767px) {
   body {
@@ -60,6 +64,10 @@ body {
 .el-centered {
   float: none;
   margin: 0 auto;
+}
+
+.uc-inline {
+  width:auto; display:inline;
 }
 
 .progress-condensed {
@@ -123,6 +131,10 @@ div.button-info:hover {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;  
+}
+
+.table-tasks caption {
+  padding-bottom: 5px; 
 }
 
 .table-tasks tr {
