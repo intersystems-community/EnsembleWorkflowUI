@@ -10,7 +10,7 @@ function LoginSrvc(RESTSrvc) {
       function(baseAuth) {
         return RESTSrvc.getPromise({
                                     method: 'GET', 
-                                    url: RESTWebApp.appName + '/test', 
+                                    url: RESTWebApp.appName + '/tasks', 
                                     headers: {'Authorization' : baseAuth }
                                   });
       }
