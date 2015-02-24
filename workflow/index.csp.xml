@@ -100,7 +100,6 @@
 
     <script language="javascript" src="js/services/RESTSrvc.js"></script>
     <script language="javascript" src="js/services/WorklistSrvc.js"></script>
-    <script language="javascript" src="js/services/LoginSrvc.js"></script>
     
     <script language="javascript" src="js/controllers/MainCtrl.js"></script>
     <script language="javascript" src="js/controllers/TaskCtrl.js"></script>

@@ -5,10 +5,12 @@
 
 // Main controller
 // Controls the authentication. Loads all the worklists for user.
-function MainCtrl($scope, $location, $cookies, LoginSrvc) {
+function MainCtrl($scope, $location, $cookies, WorklistSrvc) {
   $scope.page = {};
   $scope.page.alerts = [];
   $scope.page.loading = false;
+  $scope.page.loginState = $cookies['Token'] ? 1 : 0;
+  $scope.page.authToken = $cookies['Token'];
 
   $scope.page.closeAlert = function(index) {
    if ($scope.page.alerts.length)
@@ -58,16 +60,17 @@ function MainCtrl($scope, $location, $cookies, LoginSrvc) {
     
   // login
   $scope.page.doLogin = function(login, password) {     
-    LoginSrvc.auth($scope.page.makeBaseAuth(login, password)).then(
+    WorklistSrvc.getAll($scope.page.makeBaseAuth(login, password)).then(
       function(data) {
         $scope.page.loginState = 1; 
-       
+        $scope.page.loading = true;
+        $scope.page.authToken = $scope.page.makeBaseAuth(login, password); ;
         // set cookie to restore loginState after page reload
         $cookies['User'] = login;
-        $cookies['LoginState'] = 1; 
-       
+        $cookies['Token'] = $scope.page.authToken;
+             
         // refresh the data on page
-        $scope.page.dataInit(); 
+        $scope.page.loadSuccess(data); 
       },
       function(data, status, headers, config) {
         if (data.Error) {
@@ -85,7 +88,7 @@ function MainCtrl($scope, $location, $cookies, LoginSrvc) {
     
     // clear cookies
     delete $cookies['User'];
-    delete $cookies['LoginState'];
+    delete $cookies['Token'];
     document.cookie = "CSPSESSIONID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
     document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
     $scope.page.grid.items = null;
@@ -95,7 +98,7 @@ function MainCtrl($scope, $location, $cookies, LoginSrvc) {
 }
 
 // resolving minification problems
-MainCtrl.$inject = ['$scope', '$location', '$cookies', 'LoginSrvc'];
+MainCtrl.$inject = ['$scope', '$location', '$cookies', 'WorklistSrvc'];
 controllersModule.controller('MainCtrl', MainCtrl);
 ]]></CSP>
 </Export>

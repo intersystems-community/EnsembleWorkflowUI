@@ -13,7 +13,6 @@
 /workflow/js/controllers/MainCtrl.js
 /workflow/js/controllers/TaskCtrl.js
 /workflow/js/controllers/TasksGridCtrl.js
-/workflow/js/services/LoginSrvc.js
 /workflow/js/services/RESTSrvc.js
 /workflow/js/services/WorklistSrvc.js
 /workflow/libs/angular-cookies.min.js

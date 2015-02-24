@@ -8,20 +8,21 @@ function WorklistSrvc(RESTSrvc) {
   return {
     // save worklist object
     save: 
-      function(worklist) {
-        return RESTSrvc.getPromise( {method: 'POST', url: RESTWebApp.appName + '/tasks/' + worklist._id, data: worklist} );
+      function(worklist, baseAuthToken) {
+        return RESTSrvc.getPromise( {method: 'POST', url: RESTWebApp.appName + '/tasks/' + worklist._id, data: worklist, 
+                                     headers: {'Authorization' : baseAuthToken} });
       },
     
     // get worklist by id 
     get: 
-      function(id) {
-        return RESTSrvc.getPromise( {method: 'GET', url: RESTWebApp.appName + '/tasks/' + id} );
+      function(id, baseAuthToken) {
+        return RESTSrvc.getPromise( {method: 'GET', url: RESTWebApp.appName + '/tasks/' + id,headers: {'Authorization' : baseAuthToken} });
       },
     
     // get all worklists for current user
     getAll: 
-      function() {
-        return RESTSrvc.getPromise( {method: 'GET', url: RESTWebApp.appName + '/tasks'} );
+      function(baseAuthToken) {
+        return RESTSrvc.getPromise( {method: 'GET', url: RESTWebApp.appName + '/tasks', headers: {'Authorization' : baseAuthToken} });
       }
   }
 };
