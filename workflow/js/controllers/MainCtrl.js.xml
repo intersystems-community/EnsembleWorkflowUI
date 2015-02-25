@@ -5,7 +5,7 @@
 
 // Main controller
 // Controls the authentication. Loads all the worklists for user.
-function MainCtrl($scope, $location, $cookies, WorklistSrvc) {
+function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc) {
   $scope.page = {};
   $scope.page.alerts = [];
   $scope.page.loading = false;
@@ -60,21 +60,23 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc) {
     
   // login
   $scope.page.doLogin = function(login, password) {
-    
     var authToken = $scope.page.makeBaseAuth(login, password);
+    $scope.page.loading = true;
     
     WorklistSrvc.getAll(authToken).then(
       function(data) {
+        $scope.page.alerts = [];
         $scope.page.loginState = 1; 
         $scope.page.authToken = authToken;
         // set cookie to restore loginState after page reload
         $cookies['User'] = login.toLowerCase();
         $cookies['Token'] = $scope.page.authToken;
-             
+               
         // refresh the data on page
         $scope.page.loadSuccess(data); 
       },
       function(data, status, headers, config) {
+        $scope.page.loading = false;
         if (data.Error) {
           $scope.page.alerts.push( {type: 'danger', msg: data.Error} ); 
         }
@@ -85,22 +87,29 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc) {
   };
 
   // logout
-  $scope.page.doExit = function() {   
-    $scope.page.loginState = 0;  
-    
-    // clear cookies
-    delete $cookies['User'];
-    delete $cookies['Token'];
-    document.cookie = "CSPSESSIONID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;"; 
-    document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
-    $scope.page.grid.items = null;
-    $scope.page.loading = false;
+  $scope.page.doExit = function() {     
+    SessionSrvc.logout($scope.page.authToken).then(
+      function(data) {
+        $scope.page.loginState = 0;  
+        
+        // clear cookies
+        delete $cookies['User'];
+        delete $cookies['Token'];
+        document.cookie = "CacheBrowserId" + "=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        document.cookie = "CSPSESSIONID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        document.cookie = "CSPWSERVERID" + "=; Path=" + RESTWebApp.appName + "; expires=Thu, 01 Jan 1970 00:00:01 GMT;";   
+        $scope.page.grid.items = null;
+        $scope.page.loading = false;
+     },
+     function(data, status, headers, config) {
+       $scope.page.alerts.push( {type: 'danger', msg: data.Error} );
+     });
   };
 
 }
 
 // resolving minification problems
-MainCtrl.$inject = ['$scope', '$location', '$cookies', 'WorklistSrvc'];
+MainCtrl.$inject = ['$scope', '$location', '$cookies', 'WorklistSrvc', 'SessionSrvc'];
 controllersModule.controller('MainCtrl', MainCtrl);
 ]]></CSP>
 </Export>

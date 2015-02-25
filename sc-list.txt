@@ -14,6 +14,7 @@
 /workflow/js/controllers/TaskCtrl.js
 /workflow/js/controllers/TasksGridCtrl.js
 /workflow/js/services/RESTSrvc.js
+/workflow/js/services/SessionSrvc.js
 /workflow/js/services/WorklistSrvc.js
 /workflow/libs/angular-cookies.min.js
 /workflow/libs/angular-cookies.min.js.map
