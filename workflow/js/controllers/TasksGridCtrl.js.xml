@@ -163,7 +163,7 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
   // if AssignedTo matches with current user - return 'true'  
   $scope.page.isAssigned = function(selected) {
     if (selected) {   
-      if (selected.AssignedTo === $cookies['User'])
+      if (selected.AssignedTo.toLowerCase() === $cookies['User'].toLowerCase())
         return true;
     }    
     return false;
@@ -222,10 +222,10 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
    
    for (var i = 0; i < $scope.page.grid.items.length; i++) {
      
-     if ($scope.page.grid.items[i].AssignedTo && (user !== $scope.page.grid.items[i].AssignedTo)) {  
+     if ($scope.page.grid.items[i].AssignedTo && (user.toLowerCase() !== $scope.page.grid.items[i].AssignedTo.toLowerCase())) {  
        return false;
      }
-     else if ($scope.page.grid.items[i].AssignedTo && (user == $scope.page.grid.items[i].AssignedTo)) {
+     else if ($scope.page.grid.items[i].AssignedTo && (user.toLowerCase() == $scope.page.grid.items[i].AssignedTo.toLowerCase())) {
        return true;
      }
    } 
