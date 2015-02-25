@@ -54,16 +54,15 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc) {
   
   $scope.page.makeBaseAuth = function(user, password) {
     var token = user + ':' + password;
-    var hash = btoa(token);
+    var hash = Base64.encode(token);
     return "Basic " + hash;
   } 
     
   // login
-  $scope.page.doLogin = function(login, password) {     
+  $scope.page.doLogin = function(login, password) {      
     WorklistSrvc.getAll($scope.page.makeBaseAuth(login, password)).then(
       function(data) {
         $scope.page.loginState = 1; 
-        $scope.page.loading = true;
         $scope.page.authToken = $scope.page.makeBaseAuth(login, password); ;
         // set cookie to restore loginState after page reload
         $cookies['User'] = login;
