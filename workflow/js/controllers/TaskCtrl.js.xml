@@ -8,20 +8,17 @@
 function TaskCtrl($scope, $routeParams, $location, $modalInstance, WorklistSrvc, task, submit) {
   $scope.page = { task:{} };
   $scope.page.task = task;
-  
   $scope.page.actions = "";
+  $scope.page.formFields = "";
+  $scope.page.formValues = task.Task['%FormValues'];
   
   if (task.Task['%TaskStatus'].Request['%Actions']) {
     $scope.page.actions = task.Task['%TaskStatus'].Request['%Actions'].split(',');
   }
   
-  $scope.page.formFields = "";
-  
   if (task.Task['%TaskStatus'].Request['%FormFields']) {
     $scope.page.formFields = task.Task['%TaskStatus'].Request['%FormFields'].split(',');
   }
-
-  $scope.page.formValues = task.Task['%FormValues'];
   
   // dismiss modal 
   $scope.page.cancel = function () {

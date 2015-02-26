@@ -10,7 +10,7 @@
     <div class="panel panel-default top-buffer">
       <table class="table-tasks" ng-class="page.grid.cssClass" id="tasksTable">
         <caption class="text-left">
-          <b ng-bind="page.grid.caption"></b><b ng-bind="page.grid.updateTime"></b>
+          <b ng-bind="page.grid.caption"></b><b id="updateTime" ng-bind="page.grid.updateTime"></b>
         </caption>
         <thead style="cursor: pointer; vertical-align: middle;">
           <tr>
@@ -29,7 +29,7 @@
             <!-- Control buttons and messages -->
             <td colspan="{{page.grid.columns.length + 2}}">
               <p ng-hide="page.grid.items.length">There is no task(s) for current user.</p>
-              <span>
+              <span ng-show="page.grid.items.length">
                 Showing {{page.totalCnt()}} of {{page.grid.items.length}} task(s).
               </span> 
             </td>
@@ -37,12 +37,12 @@
         </tfoot>
         <tbody style="cursor: default;">
           <!-- In the cycle prints the table rows (sort by specified column) -->
-          <tr ng-repeat="item in page.grid.items | orderBy:page.predicate:page.isUp | filter:query" ng-class="item.rowCss">
+          <tr ng-repeat="item in page.grid.items | orderBy:page.predicate:page.isUp | filter:query" ng-class="item.rowCss" >
             <td ng-bind="$index + 1" class="text-right"></td>    
             <!-- In the cycle prints the table cells to each row -->
             <td ng-repeat="column in page.grid.columns" style="text-align: {{column.align}};" ng-click="page.select(item)">
               <span class="label label-info" ng-show="$first && item.New">New</span>
-              <span ng-hide="$first" ng-bind="page.getPropertyValue(item, column.property)"></span>     
+              <span ng-hide="$first" ng-bind="utils.getPropertyValue(item, column.property)"></span>     
             </td>
             <td class="text-center">
               <div title="Accept task" class="button button-success fa fa-plus-circle" ng-click="page.accept(item.ID)"   ng-show="!page.isAssigned(item)"></div>

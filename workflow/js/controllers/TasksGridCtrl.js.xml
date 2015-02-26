@@ -26,7 +26,7 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
   
   // data initialization for Worklist
   $scope.page.dataInit = function() {    
-     if ($scope.page.loginState) {
+    if ($scope.page.loginState) {
       $scope.page.loadTasks();
     }
   };
@@ -44,11 +44,13 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
     var hours = (date.getHours() > 9) ? date.getHours() : '0' + date.getHours();
     var minutes = (date.getMinutes() > 9) ? date.getMinutes() : '0' + date.getMinutes();
     var secs = (date.getSeconds() > 9) ? date.getSeconds() : '0' + date.getSeconds();
+    
+    $('#updateTime').animate({ opacity : 0 }, 100, function() { $('#updateTime').animate({ opacity : 1 }, 1000);} );
       
     $scope.page.grid.updateTime = ' [Last Update: ' + hours;
-    $scope.page.grid.updateTime += ':' + minutes + ':' + secs + ']';
+    $scope.page.grid.updateTime += ':' + minutes + ':' + secs + ']'; 
     
-    $scope.page.loading = false;
+    
   };
     
 
@@ -61,9 +63,9 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
         $scope.page.loadSuccess(data);
      },
      function(data, status, headers, config) {
-       $scope.page.alerts.push( {type: 'danger', msg: data.Error} );  
-       $scope.page.loading = false;
-     })     
+       $scope.page.addAlert( {type: 'danger', msg: data.Error} );  
+     })
+     .then(function () { $scope.page.loading = false; })     
   };
    
    
@@ -74,11 +76,10 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
         $scope.page.task = data;
       },
       function(data, status, headers, config) {
-        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );  
+        $scope.page.addAlert( {type: 'danger', msg: data.Error} );  
       });       
   };
-  
-  
+   
   // 'Accept' button handler.
   // Send worklist object with '$Accept' action to server.
   $scope.page.accept = function(id) {
@@ -92,10 +93,9 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
         $scope.page.submit(data); 
       },
       function(data, status, headers, config) {
-        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );
+        $scope.page.addAlert( {type: 'danger', msg: data.Error} );
       });
-  };
-  
+  };  
   
   // 'Yield' button handler.
   // Send worklist object with '$Relinquish' action to server.
@@ -110,7 +110,7 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
         $scope.page.submit(data); 
       },
       function(data, status, headers, config) {
-        $scope.page.alerts.push( {type: 'danger', msg: data.Error} );      
+        $scope.page.addAlert( {type: 'danger', msg: data.Error} );      
       });
   };
   
@@ -123,7 +123,7 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
          $scope.page.dataInit();    
       },
       function(data, status, headers, config) {
-         $scope.page.alerts.push( {type: 'danger', msg: data.Error} );  
+         $scope.page.addAlert( {type: 'danger', msg: data.Error} );  
       } 
     );  
   };
@@ -183,35 +183,35 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
     // if no id - nothing to do
     if (!id) return;
       
-      // obtainig the full object by id. If ok - open modal.
-      WorklistSrvc.get(id).then(
-        function(data) {
-          // see http://angular-ui.github.io/bootstrap/ for more options
-          var modalInstance = $modal.open({
-            templateUrl: 'partials/task.csp',
-            controller: 'TaskCtrl',
-            size: size,
-            backdrop: true,
-            resolve: {
-                      task :  function() { return data; }, 
-                      submit: function() { return $scope.page.submit }
-                     }
-          });
-          
-          // onResult
-          modalInstance.result.then(
-            function (reason) {
-              if (reason === 'save') {
-                $scope.page.alerts.push( {type: 'success', msg: 'Task saved'} );   
-              }
-            }, 
-            function () {});
-        },
-        function(data, status, headers, config) {
-          $scope.page.alerts.push( {type: 'danger', msg: data.Error} );        
+    // obtainig the full object by id. If ok - open modal.
+    WorklistSrvc.get(id).then(
+      function(data) {
+        // see http://angular-ui.github.io/bootstrap/ for more options
+        var modalInstance = $modal.open({
+          templateUrl: 'partials/task.csp',
+          controller: 'TaskCtrl',
+          size: size,
+          backdrop: true,
+          resolve: {
+                    task :  function() { return data; }, 
+                    submit: function() { return $scope.page.submit }
+                   }
         });
+        
+        // onResult
+        modalInstance.result.then(
+          function (reason) {
+            if (reason === 'save') {
+              $scope.page.addAlert( {type: 'success', msg: 'Task saved'} );   
+            }
+          }, 
+          function () {});
+      },
+      function(data, status, headers, config) {
+        $scope.page.addAlert( {type: 'danger', msg: data.Error} );        
+      });
      
-     };
+    };
      
 
   /*  User's validity checking. */

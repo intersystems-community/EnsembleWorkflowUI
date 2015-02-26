@@ -13,24 +13,43 @@ textarea {
    resize: none;
 }
 
-/* compensate fixed navbar height */
 @media(max-width:767px) {
+  /* compensate fixed navbar height */
   body {
-    padding-top: 239px;
+    padding-top: 289px;
+  }
+  
+  .alert {
+    display: block;
   }
   
   .navbar-form {  
     margin-bottom: 0 !important;
     margin-top: 0 !important;
   }  
+  
+  .form-control {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+  }
 }
 
 @media(min-width:768px) {
   body {
-    padding-top: 67px;
+    padding-top: 107px;
+  }
+  
+  .alert {
+    margin-right: 10px;
+    display: inline-block;
   }
 }
 
+@media(min-width:992px) {
+    body {
+    padding-top: 67px;
+  }
+}
 /*
 @media(min-width:992px){}
 
@@ -168,8 +187,11 @@ div.button-info:hover {
 /* alert styles */
 
 .alert {
+  position: relative;
   opacity: 0.7; 
   cursor: pointer;
+  min-width: 250px;
+  margin-bottom: 10px !important;
 }
 
 .alert:hover { 
