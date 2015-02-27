@@ -6,4 +6,5 @@ Angular UI for InterSystems Ensemble Workflow
 2. Then create (if you didn't) a web-application for REST in the Portal Management System (for ex. /csp/workflow/rest). Set dispatch class to Workflow.REST, Authentication methods to 'Unauthorized' and 'Password'.
 3. Set global value ^Settings("WF", "WebAppName") to name of your REST app.
 4. Then import (and build) all files of this project.
-5. Launch 'index.csp'.
+5. Create an application for UI specified folder with poject files. Set Authentication methods to 'Unauthorized' only.
+6. Launch 'index.csp'.

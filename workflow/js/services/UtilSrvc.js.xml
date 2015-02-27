@@ -3,7 +3,7 @@
 <CSP name="js/services/UtilSrvc.js" application="/workflow/"><![CDATA[
 'use strict';
 
-// Worklist service
+// Utils service
 function UtilSrvc($cookies) {    
   return {
     // get cookie by name
