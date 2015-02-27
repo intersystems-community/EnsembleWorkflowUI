@@ -63,7 +63,12 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
         $scope.page.loadSuccess(data);
      },
      function(data, status, headers, config) {
-       $scope.page.addAlert( {type: 'danger', msg: data.Error} );  
+       if (data.Error) {
+         $scope.page.addAlert( {type: 'danger', msg: data.Error} ); 
+       } 
+       else {
+         $scope.page.addAlert( {type: 'danger', msg: "Data fetching failed. Please reload."} );
+       }
      })
      .then(function () { $scope.page.loading = false; })     
   };
