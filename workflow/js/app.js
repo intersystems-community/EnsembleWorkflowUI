@@ -32,5 +32,5 @@ app.config([ '$routeProvider', function( $routeProvider ) {
 angular.element(document).ready(function () {
   $.get('config.json', function (data) {
     RESTWebApp = data;
-  });
+  }, 'json');
 });
