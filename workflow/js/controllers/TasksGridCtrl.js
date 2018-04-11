@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="js/controllers/TasksGridCtrl.js" application="/workflow/"><![CDATA[
 'use strict';
 
 // TasksGrid controller
@@ -255,5 +252,4 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
 TasksGridCtrl.$inject = ['$scope', '$window', '$modal', '$cookies', 'WorklistSrvc'];
 controllersModule.controller('TasksGridCtrl', TasksGridCtrl);
 
-]]></CSP>
-</Export>
+

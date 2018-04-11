@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="js/controllers/MainCtrl.js" application="/workflow/"><![CDATA[
 'use strict';
 
 // Main controller
@@ -88,5 +85,4 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSr
 // resolving minification problems
 MainCtrl.$inject = ['$scope', '$location', '$cookies', 'WorklistSrvc', 'SessionSrvc', 'UtilSrvc'];
 controllersModule.controller('MainCtrl', MainCtrl);
-]]></CSP>
-</Export>
+

@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="js/app.js" application="/workflow/"><![CDATA[
 'use strict';
 
 // From Ilya Podolko's webinar demo.
@@ -31,5 +28,4 @@ app.config([ '$routeProvider', function( $routeProvider ) {
     
   $routeProvider.otherwise( {redirectTo: '/tasks'} );
 }]);
- ]]></CSP>
-</Export>
+ 
