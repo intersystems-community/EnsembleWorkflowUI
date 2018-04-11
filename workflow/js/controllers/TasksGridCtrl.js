@@ -190,7 +190,7 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc) {
       function(data) {
         // see http://angular-ui.github.io/bootstrap/ for more options
         var modalInstance = $modal.open({
-          templateUrl: 'partials/task.csp',
+          templateUrl: 'partials/task.html',
           controller: 'TaskCtrl',
           size: size,
           backdrop: true,

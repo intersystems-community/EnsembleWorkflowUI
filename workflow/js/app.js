@@ -23,9 +23,14 @@ var controllersModule = angular.module('controllersModule', []);
 var app = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'servicesModule', 'controllersModule']);
 
 app.config([ '$routeProvider', function( $routeProvider ) {
-  $routeProvider.when( '/tasks',     {templateUrl: 'partials/tasks.csp'} );
-  $routeProvider.when( '/tasks/:id', {templateUrl: 'partials/task.csp',  controller: 'TaskCtrl'} );
+  $routeProvider.when( '/tasks',     {templateUrl: 'partials/tasks.html'} );
+  $routeProvider.when( '/tasks/:id', {templateUrl: 'partials/task.html',  controller: 'TaskCtrl'} );
     
   $routeProvider.otherwise( {redirectTo: '/tasks'} );
 }]);
- 
+
+angular.element(document).ready(function () {
+  $.get('config.json', function (data) {
+    RESTWebApp = data;
+  });
+});
