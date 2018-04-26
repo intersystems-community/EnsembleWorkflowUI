@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="js/controllers/TaskCtrl.js" application="/workflow/"><![CDATA[
 'use strict';
 
 // Task controller
@@ -40,5 +37,4 @@ function TaskCtrl($scope, $routeParams, $location, $modalInstance, WorklistSrvc,
 TaskCtrl.$inject = ['$scope', '$routeParams', '$location', '$modalInstance', 'WorklistSrvc', 'task', 'submit'];
 controllersModule.controller('TaskCtrl', TaskCtrl);
 
-]]></CSP>
-</Export>
+

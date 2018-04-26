@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="js/services/RESTSrvc.js" application="/workflow/"><![CDATA[
 'use strict';
 
 // DB access through REST
@@ -28,5 +25,4 @@ function RESTSrvc($http, $q) {
 // resolving minification problems
 RESTSrvc.$inject = ['$http', '$q'];
 servicesModule.factory('RESTSrvc', RESTSrvc);
-  ]]></CSP>
-</Export>
+  

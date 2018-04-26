@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="js/services/SessionSrvc.js" application="/workflow/"><![CDATA[
 'use strict';
 
 // Session service
@@ -17,5 +14,4 @@ function SessionSrvc(RESTSrvc) {
 // resolving minification problems
 SessionSrvc.$inject = ['RESTSrvc'];
 servicesModule.factory('SessionSrvc', SessionSrvc);
-]]></CSP>
-</Export>
+

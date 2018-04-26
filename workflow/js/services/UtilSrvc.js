@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="js/services/UtilSrvc.js" application="/workflow/"><![CDATA[
 'use strict';
 
 // Utils service
@@ -42,5 +39,4 @@ function UtilSrvc($cookies) {
 // resolving minification problems
 UtilSrvc.$inject = ['$cookies'];
 servicesModule.factory('UtilSrvc', UtilSrvc);
-]]></CSP>
-</Export>
+

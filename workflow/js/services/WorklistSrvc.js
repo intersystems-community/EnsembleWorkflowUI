@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="js/services/WorklistSrvc.js" application="/workflow/"><![CDATA[
 'use strict';
 
 // Worklist service
@@ -30,5 +27,4 @@ function WorklistSrvc(RESTSrvc) {
 // resolving minification problems
 WorklistSrvc.$inject = ['RESTSrvc'];
 servicesModule.factory('WorklistSrvc', WorklistSrvc);
-]]></CSP>
-</Export>
+
