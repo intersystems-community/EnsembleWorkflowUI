@@ -42,9 +42,12 @@
               <span ng-hide="$first" ng-bind="utils.getPropertyValue(item, column.property)"></span>     
             </td>
             <td class="text-center">
-              <div title="Accept task" class="button button-success fa fa-plus-circle" ng-click="page.accept(item.ID)"   ng-show="!page.isAssigned(item)"></div>
-              <div title="Details" class="button button-info fa fa-search"  ng-click="page.modalOpen('lg', item.ID)" ng-show="page.isAssigned(item)"></div>
-              <div title="Yield task" class="button button-danger fa fa-minus-circle"  ng-click="page.yield(item.ID)" ng-show="page.isAssigned(item)"></div>
+              <div title="Accept task" class="button button-success fa fa-plus-circle"
+                   ng-click="page.save('$Accept', item.ID)" ng-show="!page.isAssigned(item)"></div>
+              <div title="Details" class="button button-info fa fa-search"
+                   ng-click="page.modalOpen('lg', item.ID)" ng-show="page.isAssigned(item)"></div>
+              <div title="Yield task" class="button button-danger fa fa-minus-circle"
+                   ng-click="page.save('$Relinquish', item.ID)" ng-show="page.isAssigned(item)"></div>
             </td>
           </tr>
         </tbody>

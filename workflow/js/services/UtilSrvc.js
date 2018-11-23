@@ -6,7 +6,7 @@ function UtilSrvc($cookies) {
     // get cookie by name
     readCookie: 
       function(name) {
-        return $cookies[name];
+        return $cookies.get(name);
       },   
   
       // Function to get value of property of the object by name

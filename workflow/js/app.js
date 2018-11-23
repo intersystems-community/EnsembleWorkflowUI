@@ -28,9 +28,3 @@ app.config([ '$routeProvider', function( $routeProvider ) {
     
   $routeProvider.otherwise( {redirectTo: '/tasks'} );
 }]);
-
-angular.element(document).ready(function () {
-  $.get('config.json', function (data) {
-    RESTWebApp = data;
-  }, 'json');
-});

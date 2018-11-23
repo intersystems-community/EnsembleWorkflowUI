@@ -13,12 +13,15 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom.css">
-
-    <script language="javascript">
-        // REST web-app name, global variable
-        var RESTWebApp = {appName: '/api/workflow'};
-  </script>
   </head>
+
+  <script language="javascript" src="libs/jquery-1.11.2.min.js"></script>
+
+  <script>
+        $.get('config.json', function (data) {
+            window.RESTWebApp = data;
+        }, 'json');
+  </script>
   
   <body ng-app="app" ng-controller="MainCtrl">
     
@@ -56,7 +59,7 @@
             </form>
           </div>
            
-          <button ng-show="page.loginState == 1" type="button" ng-click="page.doExit();" class="btn navbar-btn btn-default pull-right" ng-cloak>Logout, 
+          <button ng-show="page.loginState == 1" type="button" ng-click="doExit();" class="btn navbar-btn btn-default pull-right" ng-cloak>Logout,
             <span class="label label-info" ng-bind="utils.readCookie('User')"></span>
           </button>
           
@@ -101,12 +104,11 @@
     <script language="javascript" src="js/services/WorklistSrvc.js"></script>
     <script language="javascript" src="js/services/SessionSrvc.js"></script>
     <script language="javascript" src="js/services/UtilSrvc.js"></script>
-    
+
     <script language="javascript" src="js/controllers/MainCtrl.js"></script>
     <script language="javascript" src="js/controllers/TaskCtrl.js"></script>
     <script language="javascript" src="js/controllers/TasksGridCtrl.js"></script>
-    
-    <script language="javascript" src="libs/jquery-1.11.2.min.js"></script>  
+
     <script language="javascript" src="libs/bootstrap.min.js"></script>
     
   </body>

@@ -1,28 +1,45 @@
 'use strict';
 
 // Worklist service
-function WorklistSrvc(RESTSrvc) {    
-  return {
-    // save worklist object
-    save: 
-      function(worklist, baseAuthToken) {
-        return RESTSrvc.getPromise( {method: 'POST', url: RESTWebApp.appName + '/tasks/' + worklist._id, data: worklist, 
-                                     headers: {'Authorization' : baseAuthToken} });
-      },
-    
-    // get worklist by id 
-    get: 
-      function(id, baseAuthToken) {
-        return RESTSrvc.getPromise( {method: 'GET', url: RESTWebApp.appName + '/tasks/' + id,headers: {'Authorization' : baseAuthToken} });
-      },
-    
-    // get all worklists for current user
-    getAll: 
-      function(baseAuthToken) {
-        return RESTSrvc.getPromise( {method: 'GET', url: RESTWebApp.appName + '/tasks', headers: {'Authorization' : baseAuthToken} });
-      }
-  }
-};
+function WorklistSrvc(rest) {
+    return {
+        // save worklist object
+        save:
+            function (worklist, baseAuthToken) {
+                var config = { method: 'POST', url: window.RESTWebApp.appName + '/tasks/' + worklist._id, data: worklist };
+
+                if (baseAuthToken) {
+                    config.headers = {'Authorization': baseAuthToken};
+                }
+
+                return rest.http(config);
+            },
+
+        // get worklist by id
+        get:
+            function (id, baseAuthToken) {
+                var config = { method: 'GET', url: window.RESTWebApp.appName + '/tasks/' + id };
+
+                if (baseAuthToken) {
+                    config.headers = {'Authorization': baseAuthToken};
+                }
+
+                return rest.http(config);
+            },
+
+        // get all worklists for current user
+        getAll:
+            function (baseAuthToken) {
+                var config = { method: 'GET', url: window.RESTWebApp.appName + '/tasks' };
+
+                if (baseAuthToken) {
+                    config.headers = {'Authorization': baseAuthToken};
+                }
+
+                return rest.http(config);
+            }
+    }
+}
 
 // resolving minification problems
 WorklistSrvc.$inject = ['RESTSrvc'];

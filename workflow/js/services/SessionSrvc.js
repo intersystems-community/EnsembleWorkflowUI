@@ -1,12 +1,11 @@
 'use strict';
 
 // Session service
-function SessionSrvc(RESTSrvc) {    
+function SessionSrvc(rest) {
   return {
-    // save worklist object
     logout: 
-      function(baseAuthToken) {
-        return RESTSrvc.getPromise( {method: 'GET', url: RESTWebApp.appName + '/logout', headers: {'Authorization' : baseAuthToken} });
+      function() {
+        return rest.http({ method: 'GET', url: RESTWebApp.appName + '/logout' });
       }
   }
 };

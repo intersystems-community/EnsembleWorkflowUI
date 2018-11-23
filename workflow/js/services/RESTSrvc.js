@@ -1,28 +1,20 @@
 'use strict';
 
-// DB access through REST
-// Service from Ilya Podolko's webinar demo.
-
-function RESTSrvc($http, $q) { 
+function RESTSrvc($http, $root) {
   return {
-    getPromise: 
+    http:
       function(config) {
-        var deferred = $q.defer();
-
-        $http(config).
-            success(function(data, status, headers, config) {
-             deferred.resolve(data);
-            }).
-            error(function(data, status, headers, config) {
-              deferred.reject(data, status, headers, config);
+        return $http(config)
+            .catch(function (response) {
+                if (response.status === 403 || response.status === 404) {
+                    $root.doExit(false);
+                }
             });
-
-        return deferred.promise;
       }
     }
 };
 
 // resolving minification problems
-RESTSrvc.$inject = ['$http', '$q'];
+RESTSrvc.$inject = ['$http', '$rootScope'];
 servicesModule.factory('RESTSrvc', RESTSrvc);
   
