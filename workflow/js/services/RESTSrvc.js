@@ -9,6 +9,8 @@ function RESTSrvc($http, $root) {
                 if (response.status === 403 || response.status === 404) {
                     $root.doExit(false);
                 }
+
+                throw {data: 'Login unsuccessful'};
             });
       }
     }

@@ -5,11 +5,11 @@ function WorklistSrvc(rest) {
     return {
         // save worklist object
         save:
-            function (worklist, baseAuthToken) {
+            function (worklist, headers) {
                 var config = { method: 'POST', url: window.RESTWebApp.appName + '/tasks/' + worklist._id, data: worklist };
 
-                if (baseAuthToken) {
-                    config.headers = {'Authorization': baseAuthToken};
+                if (headers) {
+                    config.headers = headers;
                 }
 
                 return rest.http(config);
@@ -17,11 +17,11 @@ function WorklistSrvc(rest) {
 
         // get worklist by id
         get:
-            function (id, baseAuthToken) {
+            function (id, headers) {
                 var config = { method: 'GET', url: window.RESTWebApp.appName + '/tasks/' + id };
 
-                if (baseAuthToken) {
-                    config.headers = {'Authorization': baseAuthToken};
+                if (headers) {
+                    config.headers = headers; // {'Authorization': baseAuthToken};
                 }
 
                 return rest.http(config);
@@ -29,11 +29,11 @@ function WorklistSrvc(rest) {
 
         // get all worklists for current user
         getAll:
-            function (baseAuthToken) {
+            function (headers) {
                 var config = { method: 'GET', url: window.RESTWebApp.appName + '/tasks' };
 
-                if (baseAuthToken) {
-                    config.headers = {'Authorization': baseAuthToken};
+                if (headers) {
+                    config.headers = headers;
                 }
 
                 return rest.http(config);

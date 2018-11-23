@@ -38,19 +38,21 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSr
         var authToken = $scope.page.makeBaseAuth(login, password);
         $scope.page.loading = true;
 
-        WorklistSrvc.getAll(authToken)
+        var headers = { 'Authorization': authToken };
+
+        WorklistSrvc.getAll(headers)
             .then(function (response) {
                 $scope.page.alerts = [];
                 $scope.page.loginState = 1;
-                $scope.page.authToken = authToken;
                 // set cookie to restore loginState after page reload
                 $cookies.put('User', login.toLowerCase());
 
                 // refresh the data on page
                 $scope.page.loadSuccess(response.data);
             })
-            .catch(function (error) {
-                $scope.page.addAlert({type: 'danger', msg: error || 'Login unsuccessful'});
+            .catch(function (response) {
+                var error = (response && response.data);
+                $rootScope.addAlert({type: 'danger', msg: error || 'Login unsuccessful'});
             })
             .finally(function () {
                 $scope.page.loading = false;
