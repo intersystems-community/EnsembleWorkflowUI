@@ -2,7 +2,7 @@
 
 // Main controller
 // Controls the authentication. Loads all the worklists for user.
-function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSrvc, $rootScope, $timeout) {
+function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSrvc, $rootScope, $timeout, $filter) {
     $scope.page = {};
     $scope.page.alerts = [];
     $scope.utils = UtilSrvc;
@@ -41,18 +41,18 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSr
         var headers = { 'Authorization': authToken };
 
         WorklistSrvc.getAll(headers)
-            .then(function (response) {
+            .then(function (tasks) {
                 $scope.page.alerts = [];
                 $scope.page.loginState = 1;
                 // set cookie to restore loginState after page reload
                 $cookies.put('User', login.toLowerCase());
 
                 // refresh the data on page
-                $scope.page.loadSuccess(response.data);
+                tasks.forEach(function(task) { task.timeCreated = $filter('date')(task.timeCreated.replace(' ', 'T'), window.appConfig.dateTimeFormat) })
+                $scope.page.loadSuccess(tasks || []);
             })
             .catch(function (response) {
-                var error = (response && response.data);
-                $rootScope.addAlert({type: 'danger', msg: error || 'Login unsuccessful'});
+                $rootScope.addAlert({type: 'danger', msg: response || 'Login unsuccessful'});
             })
             .finally(function () {
                 $scope.page.loading = false;
@@ -85,6 +85,6 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSr
 }
 
 // resolving minification problems
-MainCtrl.$inject = ['$scope', '$location', '$cookies', 'WorklistSrvc', 'SessionSrvc', 'UtilSrvc', '$rootScope', '$timeout'];
+MainCtrl.$inject = ['$scope', '$location', '$cookies', 'WorklistSrvc', 'SessionSrvc', 'UtilSrvc', '$rootScope', '$timeout', '$filter'];
 controllersModule.controller('MainCtrl', MainCtrl);
 

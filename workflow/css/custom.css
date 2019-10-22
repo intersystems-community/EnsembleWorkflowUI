@@ -4,10 +4,24 @@ html {
 
 body {
   min-height: 100%;
+  background: #EDEEF0;
 }
 
 textarea {
    resize: none;
+}
+
+.label-new {
+  background-color: #3297d3;
+  letter-spacing: 1px;
+}
+
+.label-user {
+  background-color: #3297d3;
+  letter-spacing: 0.8px;
+  font-size: 12px;
+  font-weight: 400;
+}
 }
 
 @media(max-width:767px) {
@@ -15,16 +29,16 @@ textarea {
   body {
     padding-top: 289px;
   }
-  
+
   .alert {
     display: block;
   }
-  
-  .navbar-form {  
+
+  .navbar-form {
     margin-bottom: 0 !important;
     margin-top: 0 !important;
-  }  
-  
+  }
+
   .form-control {
     margin-top: 5px !important;
     margin-bottom: 5px !important;
@@ -35,7 +49,7 @@ textarea {
   body {
     padding-top: 107px;
   }
-  
+
   .alert {
     margin-right: 10px;
     display: inline-block;
@@ -73,8 +87,8 @@ textarea {
    cursor: default !important;
 }
 
-.top-buffer { 
-  margin-top: 15px; 
+.top-buffer {
+  margin-top: 15px;
 }
 
 .el-centered {
@@ -87,7 +101,7 @@ textarea {
 }
 
 .progress-condensed {
-  height: 15px !important;  
+  height: 15px !important;
   font-size: 11px !important;
   line-height: 15px !important;
 }
@@ -104,7 +118,7 @@ textarea {
 
 div.button {
   display: inline-block;
-  border-radius: 2px;
+  border-radius: 4px;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -116,27 +130,27 @@ div.button {
 }
 
 div.button-success {
-  background: #60d67b;
+  background: #24b47e;
 }
 
 div.button-success:hover {
-  background: #54c46e;
+  background: #0a7261;
 }
 
 div.button-danger {
-  background: #ed0707;
+  background: #c23d4b;
 }
 
 div.button-danger:hover {
-  background: #ca3b37;
+  background: #9e2146;
 }
 
 div.button-info {
-  background: #2076c1;
+  background: #217ab7;
 }
 
 div.button-info:hover {
-  background: #2a6395;
+  background: #125b98;
 }
 
 /* table styles */
@@ -146,11 +160,11 @@ div.button-info:hover {
   -ms-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
-  -webkit-user-select: none;  
+  -webkit-user-select: none;
 }
 
 .table-tasks caption {
-  padding-bottom: 5px; 
+  padding-bottom: 5px;
 }
 
 .table-tasks tr {
@@ -169,12 +183,15 @@ div.button-info:hover {
    background: #efefef !important;
 }
 
-.table-tasks>tbody>tr>td, .table-tasks>tfoot>tr>td {
-  padding: 3px !important;
+.table-tasks>tbody>tr>td {
+  padding: 3px 8px;
   vertical-align: middle !important;
   transition: background 0.7s ease;
   -webkit-transition: background 0.7s ease;
+}
 
+.table-tasks>tfoot>tr>td {
+  padding: 8px;
 }
 
 .table-tasks>tbody>tr>td:last-child {
@@ -185,13 +202,13 @@ div.button-info:hover {
 
 .alert {
   position: relative;
-  opacity: 0.7; 
+  opacity: 0.7;
   cursor: pointer;
   min-width: 250px;
   margin-bottom: 10px !important;
 }
 
-.alert:hover { 
-  opacity: 1; 
+.alert:hover {
+  opacity: 1;
 }
 

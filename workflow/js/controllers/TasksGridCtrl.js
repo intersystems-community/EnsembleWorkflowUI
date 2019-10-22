@@ -2,7 +2,7 @@
 
 // TasksGrid controller
 // dependency injection
-function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootScope) {
+function TasksGridCtrl($scope, $window, $modal, WorklistSrvc, $rootScope, $filter) {
 
     // Initialize grid.
     // grid data:
@@ -10,14 +10,14 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
     $scope.page.grid = {
         caption: 'Inbox Tasks',
         cssClass: 'table table-condensed table-bordered table-hover',
-        columns: [{name: '', property: 'New', align: 'center'},
-            {name: 'Priority', property: 'Priority'},
-            {name: 'Subject', property: 'Subject'},
-            {name: 'Message', property: 'Message'},
-            {name: 'Role', property: 'RoleName'},
-            {name: 'Assigned To', property: 'AssignedTo'},
-            {name: 'Time Created', property: 'TimeCreated'},
-            {name: 'Age', property: 'Age'}]
+        columns: [
+            {name: '', property: 'New', align: 'center', width: 60},
+            {name: 'Priority', property: 'priority', align: 'right', width: 100},
+            {name: 'Subject', property: 'subject'},
+            {name: 'Message', property: 'message'},
+            {name: 'Role', property: 'role'},
+            {name: 'Time Created', property: 'timeCreated', align: 'center', width: 140}
+        ]
     };
 
 
@@ -29,12 +29,8 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
     };
 
 
-    $scope.page.loadSuccess = function (data) {
-        $scope.page.grid.items = data.children;
-        // if we get data for other user - logout
-        if (!$scope.page.checkUserValidity()) {
-            $scope.doExit();
-        }
+    $scope.page.loadSuccess = function (tasks) {
+        $scope.page.grid.items = tasks;
 
         var date = new Date();
 
@@ -56,14 +52,12 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
         $scope.page.loading = true;
 
         WorklistSrvc.getAll()
-            .then(function (response) {
-                if (response) {
-                    $scope.page.loadSuccess(response.data);
-                }
+            .then(function (tasks) {
+                tasks.forEach(function(task) { task.timeCreated = $filter('date')(task.timeCreated.replace(' ', 'T'), window.appConfig.dateTimeFormat) })
+                $scope.page.loadSuccess(tasks || []);
             })
             .catch(function (response) {
-                var error = (response && response.data);
-                $rootScope.addAlert({type: 'danger', msg: error || 'Data fetching failed. Please reload.'});
+                $rootScope.addAlert({type: 'danger', msg: response || 'Data fetching failed. Please reload.'});
             })
             .finally(function () {
                 $scope.page.loading = false;
@@ -74,14 +68,13 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
     // load task (worklist) by id
     $scope.page.loadTask = function (id) {
         WorklistSrvc.get(id, $scope.page.authToken)
-            .then(function (response) {
-                if (response) {
-                    $scope.page.task = response.data;
+            .then(function (task) {
+                if (task) {
+                    $scope.page.task = task;
                 }
             })
             .catch(function (response) {
-                var error = (response && response.data);
-                $rootScope.addAlert({type: 'danger', msg: error || 'Unknown error on task load'});
+                $rootScope.addAlert({type: 'danger', msg: response || 'Unknown error on task load'});
             });
     };
 
@@ -91,15 +84,14 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
 
         // get full worklist, set action and submit worklist.
         WorklistSrvc.get(id)
-            .then(function (response) {
-                if (response) {
-                    response.data.Task["%Action"] = action;
-                    $scope.page.submit(response.data);
+            .then(function (task) {
+                if (task) {
+                    task.action = action;
+                    $scope.page.submit(task);
                 }
             })
             .catch(function (response) {
-                var error = (response && response.data);
-                $rootScope.addAlert({type: 'danger', msg: error || 'Unknown error on task action'});
+                $rootScope.addAlert({type: 'danger', msg: response || 'Unknown error on task action'});
             });
     };
 
@@ -112,8 +104,7 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
                 $scope.page.dataInit();
             })
             .catch(function (response) {
-                var error = (response && response.data);
-                $rootScope.addAlert({type: 'danger', msg: error || 'Unknown error on task action'});
+                $rootScope.addAlert({type: 'danger', msg: response || 'Unknown error on task action'});
             }
         );
     };
@@ -128,55 +119,23 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
         $scope.page.sortIcon = 'fa fa-sort-' + ($scope.page.isUp ? 'up' : 'down') + ' pull-right';
     };
 
-    // selecting row in table
-    $scope.page.select = function (item) {
-        if ($scope.page.grid.selected) {
-            $scope.page.grid.selected.rowCss = '';
-
-            if ($scope.page.grid.selected == item) {
-                $scope.page.grid.selected = null;
-                return;
-            }
-        }
-
-        $scope.page.grid.selected = item;
-        // change css class to highlight the row
-        $scope.page.grid.selected.rowCss = 'info';
-    };
-
     // count currently displayed tasks
     $scope.page.totalCnt = function () {
         return $window.document.getElementById('tasksTable').getElementsByTagName('TR').length - 2;
     };
 
-
-    // if AssignedTo matches with current user - return 'true'
-    $scope.page.isAssigned = function (selected) {
-        if (selected) {
-            if (selected.AssignedTo.toLowerCase() === $cookies.get('User').toLowerCase())
-                return true;
-        }
-        return false;
-    };
-
-    // watching for changes in 'Search' input
-    // if there is change, reset the selection.
-    $scope.$watch('query', function () {
-        if ($scope.page.grid.selected) {
-            $scope.page.select($scope.page.grid.selected);
-        }
-    });
-
     /* modal window open */
-
     $scope.page.modalOpen = function (size, id) {
         // if no id - nothing to do
         if (!id) return;
 
-        // obtainig the full object by id. If ok - open modal.
+        // obtaining the full object by id. If ok - open modal.
         WorklistSrvc.get(id)
-            .then(function (response) {
-                if (!response) return;
+            .then(function (task) {
+                if (!task) return;
+
+                task.timeCreated = $filter('date')(task.timeCreated.replace(' ', 'T'), window.appConfig.dateTimeFormat);
+
                 // see http://angular-ui.github.io/bootstrap/ for more options
                 var modalInstance = $modal.open({
                     templateUrl: 'partials/task.html',
@@ -185,7 +144,7 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
                     backdrop: true,
                     resolve: {
                         task: function () {
-                            return response.data;
+                            return task;
                         },
                         submit: function () {
                             return $scope.page.submit
@@ -201,44 +160,22 @@ function TasksGridCtrl($scope, $window, $modal, $cookies, WorklistSrvc, $rootSco
                 });
             })
             .catch(function (response) {
-                var error = (response && response.data);
-                $rootScope.addAlert({type: 'danger', msg: error || 'Unknown error on modal open'});
+                $rootScope.addAlert({type: 'danger', msg: response || 'Unknown error on modal open'});
             });
 
     };
 
-
-    /*  User's validity checking. */
-
-    // If we get the data for other user, logout immediately
-    $scope.page.checkUserValidity = function () {
-        var user = $cookies.get('User');
-
-        for (var i = 0; i < $scope.page.grid.items.length; i++) {
-
-            if ($scope.page.grid.items[i].AssignedTo && (user.toLowerCase() !== $scope.page.grid.items[i].AssignedTo.toLowerCase())) {
-                return false;
-            }
-            else if ($scope.page.grid.items[i].AssignedTo && (user.toLowerCase() == $scope.page.grid.items[i].AssignedTo.toLowerCase())) {
-                return true;
-            }
-        }
-
-        return true;
-    };
-
-
     /* Initialize */
 
-    // sort table (by Age, asc)
+    // sort table (by time, desc)
     // to change sorting column change 'columns[<index>]'
-    $scope.page.sort($scope.page.grid.columns[7].property, true);
+    $scope.page.sort($scope.page.grid.columns[5].property, false);
 
     $scope.page.dataInit();
 }
 
 // resolving minification problems
-TasksGridCtrl.$inject = ['$scope', '$window', '$modal', '$cookies', 'WorklistSrvc', '$rootScope'];
+TasksGridCtrl.$inject = ['$scope', '$window', '$modal', 'WorklistSrvc', '$rootScope', '$filter'];
 controllersModule.controller('TasksGridCtrl', TasksGridCtrl);
 
 

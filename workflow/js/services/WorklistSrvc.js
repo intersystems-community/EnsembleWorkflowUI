@@ -3,10 +3,10 @@
 // Worklist service
 function WorklistSrvc(rest) {
     return {
-        // save worklist object
+        // save task object
         save:
-            function (worklist, headers) {
-                var config = { method: 'POST', url: window.RESTWebApp.appName + '/tasks/' + worklist._id, data: worklist };
+            function (task, headers) {
+                var config = { method: 'POST', url: window.appConfig.restAppName + '/task/' + task.id, data: task };
 
                 if (headers) {
                     config.headers = headers;
@@ -18,7 +18,7 @@ function WorklistSrvc(rest) {
         // get worklist by id
         get:
             function (id, headers) {
-                var config = { method: 'GET', url: window.RESTWebApp.appName + '/tasks/' + id };
+                var config = { method: 'GET', url: window.appConfig.restAppName + '/task/' + id };
 
                 if (headers) {
                     config.headers = headers; // {'Authorization': baseAuthToken};
@@ -30,7 +30,7 @@ function WorklistSrvc(rest) {
         // get all worklists for current user
         getAll:
             function (headers) {
-                var config = { method: 'GET', url: window.RESTWebApp.appName + '/tasks' };
+                var config = { method: 'GET', url: window.appConfig.restAppName + '/tasks' };
 
                 if (headers) {
                     config.headers = headers;

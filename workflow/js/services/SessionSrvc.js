@@ -3,9 +3,9 @@
 // Session service
 function SessionSrvc(rest) {
   return {
-    logout: 
+    logout:
       function() {
-        return rest.http({ method: 'GET', url: RESTWebApp.appName + '/logout' });
+        return rest.http({ method: 'GET', url: appConfig.restAppName + '/logout' });
       }
   }
 };

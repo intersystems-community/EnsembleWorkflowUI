@@ -1,3 +1,5 @@
 {
-  "appName": "/wf-a/rest"
+  "restAppName": "/csp/wf/rest",
+  "dateTimeFormat": "dd.MM.yyyy hh:mm:ss",
+  "dateFormat": "dd.MM.yyyy"
 }

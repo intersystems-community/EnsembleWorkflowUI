@@ -1,79 +1,72 @@
   <div class="modal-header">
       <h3 class="modal-title">Task description</h3>
   </div>
-  
+
   <div class="modal-body">
     <div class="container-fluid">
-          
-      <div class="row top-buffer"> 
+
+      <div class="row top-buffer">
         <div class="col-xs-12 col-md-6">
           <div class="form-group">
             <label for="subject">Subject</label>
-            <input id="subject" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].Request['%Subject'];" readonly>
+            <input id="subject" type="text" class="form-control task-info-input" ng-model="page.task.subject" readonly>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="timeCreated">Time created</label>
-            <input id="timeCreated" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].TimeCreated;" readonly>
+            <input id="timeCreated" type="text" class="form-control task-info-input" ng-model="page.task.timeCreated" readonly>
           </div>
-        </div> 
+        </div>
       </div>
-          
-      <div class="row"> 
+
+      <div class="row">
         <div class="col-md-12">
           <div class="form-group">
             <label for="message">Message</label>
-            <textarea id="message" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].Request['%Message'];" rows="3" readonly></textarea>
+            <textarea id="message" class="form-control task-info-input" ng-model="page.task.message" rows="3" readonly></textarea>
           </div>
         </div>
       </div>
-          
-      <div class="row"> 
+
+      <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label for="role">Role</label>
-            <input id="role" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].Role.Name;" readonly>
+            <input id="role" type="text" class="form-control task-info-input" ng-model="page.task.role" readonly>
           </div>
         </div>
-            
-        <div class="col-md-3">
-          <div class="form-group">
-            <label for="assignedTo">Assigned to</label>
-            <input id="assignedTo" type="text" class="form-control task-info-input" ng-model="page.task.Task['%TaskStatus'].AssignedTo;" readonly>
-          </div>
-        </div>
-        
+
          <div class="col-md-3">
           <div class="form-group">
             <label for="priority">Priority</label>
-            <input id="priority" type="text" class="form-control task-info-input" ng-model="page.task.Task['%Priority'];" readonly>
+            <input id="priority" type="text" class="form-control task-info-input" ng-model="page.task.priority" readonly>
           </div>
-        </div>                    
+        </div>
       </div>
-      
-      <div class="row" ng-show="page.formFields"> 
+
+      <div class="row" ng-show="page.formFields">
         <div class="delimeter col-md-6 el-centered">
         </div>
       </div>
-        
-      <div class="row" ng-repeat="formField in page.formFields"> 
+
+      <div class="row" ng-repeat="(field, value) in page.task.formFields">
         <div class="col-md-12">
           <div class="form-group">
-            <label for="form{{$index}}" ng-bind="formField"></label>
-            <input id="form{{$index}}" type="text" class="form-control task-info-input" ng-model="page.formValues[formField]">
+            <label for="form{{$index}}" ng-bind="field"></label>
+            <input id="form{{$index}}" type="text" class="form-control task-info-input" ng-model="page.task.formFields[field]">
           </div>
         </div>
-      </div>             
-          
+      </div>
+
     </div>
-      
+
   </div>
-  
+
   <div class="modal-footer">
-      <button ng-repeat="action in page.actions" class="btn btn-primary top-buffer" ng-click="page.doAction(action)" ng-bind="action"></button>  
-  
+      <button ng-repeat="action in page.task.actions" class="btn btn-primary top-buffer" ng-click="page.doAction(action)" ng-bind="action"></button>
+
       <button class="btn btn-success top-buffer" ng-click="page.doAction('$Save')">Save</button>
-      <button class="btn btn-warning top-buffer" ng-click="page.cancel()">Cancel</button>   
+      <button class="btn btn-warning top-buffer" ng-click="page.cancel()">Cancel</button>
   </div>
 
