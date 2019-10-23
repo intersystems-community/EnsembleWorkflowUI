@@ -1,28 +1,22 @@
 'use strict';
 
 // Utils service
-function UtilSrvc($cookies) {    
+function UtilSrvc() {
   return {
-    // get cookie by name
-    readCookie: 
-      function(name) {
-        return $cookies.get(name);
-      },   
-  
       // Function to get value of property of the object by name
-      // Example: 
+      // Example:
       // var obj = {car: {body: {company: {name: 'Mazda'}}}};
-      // getPropertyValue(obj, 'car.body.company.name') 
+      // getPropertyValue(obj, 'car.body.company.name')
       getPropertyValue:
         function(item, propertyStr) {
           var value = item;
 
           try {
             var properties = propertyStr.split('.');
-            
+
             for (var i = 0; i < properties.length; i++) {
               value = value[properties[i]];
-                  
+
               if (value !== Object(value))
                 break;
             }
@@ -37,6 +31,6 @@ function UtilSrvc($cookies) {
 };
 
 // resolving minification problems
-UtilSrvc.$inject = ['$cookies'];
+UtilSrvc.$inject = [];
 servicesModule.factory('UtilSrvc', UtilSrvc);
 

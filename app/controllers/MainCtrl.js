@@ -2,12 +2,12 @@
 
 // Main controller
 // Controls the authentication. Loads all the worklists for user.
-function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSrvc, $rootScope, $timeout, $filter) {
+function MainCtrl($scope, WorklistSrvc, UtilSrvc, $rootScope, $filter, $window) {
     $scope.page = {};
     $scope.page.alerts = [];
     $scope.utils = UtilSrvc;
     $scope.page.loading = false;
-    $scope.page.loginState = $cookies.get('User') ? 1 : 0;
+    $scope.User = $window.User;
 
     $scope.page.closeAlert = function (index) {
         if ($scope.page.alerts.length) {
@@ -43,9 +43,6 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSr
         WorklistSrvc.getAll(headers)
             .then(function (tasks) {
                 $scope.page.alerts = [];
-                $scope.page.loginState = 1;
-                // set cookie to restore loginState after page reload
-                $cookies.put('User', login.toLowerCase());
 
                 // refresh the data on page
                 tasks.forEach(function(task) { task.timeCreated = $filter('date')(task.timeCreated.replace(' ', 'T'), window.appConfig.dateTimeFormat) })
@@ -60,31 +57,13 @@ function MainCtrl($scope, $location, $cookies, WorklistSrvc, SessionSrvc, UtilSr
     };
 
     // logout
-    $rootScope.doExit = function (isSession) {
-        var promise;
-
-        if (isSession) {
-            promise = SessionSrvc.logout()
-        } else {
-            promise = $timeout(function() {}, 10);
-        }
-
-        promise
-            .then(function () {
-                $scope.page.loginState = 0;
-                $scope.page.grid.items = null;
-                $scope.page.loading = false;
-                // clear cookies
-                $cookies.remove('User');
-            })
-            .catch(function (error) {
-                $rootScope.addAlert({type: 'danger', msg: error || 'Unknown error on logout'});
-            });
+    $rootScope.doExit = function () {
+        $window.location.href = '?CacheLogout=1';
     };
 
 }
 
 // resolving minification problems
-MainCtrl.$inject = ['$scope', '$location', '$cookies', 'WorklistSrvc', 'SessionSrvc', 'UtilSrvc', '$rootScope', '$timeout', '$filter'];
+MainCtrl.$inject = ['$scope', 'WorklistSrvc', 'UtilSrvc', '$rootScope', '$filter', '$window'];
 controllersModule.controller('MainCtrl', MainCtrl);
 

@@ -23,9 +23,7 @@ function TasksGridCtrl($scope, $window, $modal, WorklistSrvc, $rootScope, $filte
 
     // data initialization for Worklist
     $scope.page.dataInit = function () {
-        if ($scope.page.loginState) {
             $scope.page.loadTasks();
-        }
     };
 
 
@@ -138,7 +136,7 @@ function TasksGridCtrl($scope, $window, $modal, WorklistSrvc, $rootScope, $filte
 
                 // see http://angular-ui.github.io/bootstrap/ for more options
                 var modalInstance = $modal.open({
-                    templateUrl: 'partials/task.html',
+                    templateUrl: 'app/partials/task.html',
                     controller: 'TaskCtrl',
                     size: size,
                     backdrop: true,
@@ -157,7 +155,7 @@ function TasksGridCtrl($scope, $window, $modal, WorklistSrvc, $rootScope, $filte
                     if (reason === 'save') {
                         $rootScope.addAlert({type: 'success', msg: 'Task saved'});
                     }
-                });
+                }).catch(function () { modalInstance.close(); })
             })
             .catch(function (response) {
                 $rootScope.addAlert({type: 'danger', msg: response || 'Unknown error on modal open'});
