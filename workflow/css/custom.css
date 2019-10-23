@@ -12,12 +12,12 @@ textarea {
 }
 
 .label-new {
-  background-color: #3297d3;
+  background-color: #5396cf;
   letter-spacing: 1px;
 }
 
 .label-user {
-  background-color: #3297d3;
+  background-color: #5396cf;
   letter-spacing: 0.8px;
   font-size: 12px;
   font-weight: 400;
@@ -130,27 +130,27 @@ div.button {
 }
 
 div.button-success {
-  background: #24b47e;
+  background: #5fb36f;
 }
 
 div.button-success:hover {
-  background: #0a7261;
+  background: #3ca850;
 }
 
 div.button-danger {
-  background: #c23d4b;
+  background: #dc6876;
 }
 
 div.button-danger:hover {
-  background: #9e2146;
+  background: #be313e;
 }
 
 div.button-info {
-  background: #217ab7;
+  background: #5396cf;
 }
 
 div.button-info:hover {
-  background: #125b98;
+  background: #437aa9;
 }
 
 /* table styles */
