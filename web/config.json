@@ -1,5 +1,5 @@
 {
-  "restAppName": "/csp/wf/rest",
+  "restAppName": "/workflow/rest",
   "dateTimeFormat": "dd.MM.yyyy hh:mm:ss",
   "dateFormat": "dd.MM.yyyy"
 }
